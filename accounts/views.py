@@ -18,11 +18,9 @@ def postdata(request):
     print(request.body)
     print()
     print()
-    print(request.POST)
     print()
     print()
     serial = request.POST["serial"]
-    print(serial)
     status = request.POST["stat"]
     battery_status = request.POST["batstat"]
     battery_voltage = request.POST["volt"]
@@ -31,14 +29,19 @@ def postdata(request):
     Energy_curr = request.POST["engcurr"]
     Total_energy = request.POST["totaleng"]
     
-    pr = product.objects.get(serial_no=serial)
+    pr = product.objects.filter(serial_no=serial)
 
     if pr is None:
         return HttpResponse('serial no not found')
-    print(pr)
+    #   
     l = list(pr)
-    
-    new = product(serial_no=serial,location='Nagpur',attribute='0',status=status,battery_status=battery_status,battery_voltage=battery_voltage,power_panel=power_panel,panel_voltage=panel_voltage,energy_curr=Energy_curr,total_energy=Total_energy,belongs_to=l[0].belongs_to)
+    print(pr)
+    new = product(serial_no=serial,location='Nagpur',attribute='0',status=status,battery_status=battery_status,battery_voltage=battery_voltage,power_panel=power_panel,panel_voltage=panel_voltage,energy_curr=Energy_curr,total_energy=Total_energy)
+    users = l[0].belongs_to.all()
+    print(users)
+    new.save()
+    for i in users:
+        new.belongs_to.add(i)
     new.save()
     return HttpResponse("Data updated")
 
@@ -146,6 +149,7 @@ def ViewProduct(request):
             print('None')
             return Http404
         products = list(products)
+        products.reverse()
         users = [i.belongs_to.all() for i in products ]
         print(products[0].belongs_to.all())
         context = {
