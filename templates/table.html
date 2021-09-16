@@ -19,7 +19,7 @@
       <input class="select1" type="submit" />
     </form>
 
-    <table class="tbody" style="padding: 20px 0px">
+    <table class="tbody" style="padding: 20px 0px; height: 500px;">
       <tr>
         <th>Serial no.</th>
         <th>Created at</th>
@@ -31,7 +31,7 @@
         <th>Panel Voltage (V)</th>
         <th>Energy Today</th>
         <th>Total Energy</th>
-        <th>User</th>
+        <th>Fault</th>
       </tr>
       {% for p in products %}
       <tr>
@@ -45,9 +45,7 @@
         <td>{{p.panel_voltage}}</td>
         <td>{{p.energy_curr}}</td>
         <td>{{p.total_energy}}</td>
-        {% for u in user %} {% for p in u %}
-        <td>{{p.username}}</td>
-        {% endfor %} {% endfor %}
+        <td> No Fault </td>
       </tr>
       {% endfor %}
     </table>
