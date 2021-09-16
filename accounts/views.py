@@ -36,7 +36,6 @@ def postdata(request):
     if pr is None:
         return HttpResponse('serial no not found')
     print(pr)
-    return HttpResponse("Data updated")
     
     pr.attribute = 'puppi'
     pr.status = status
@@ -46,7 +45,9 @@ def postdata(request):
     pr.panel_voltage = panel_voltage
     pr.energy_curr = Energy_curr
     pr.total_energy = Total_energy
-    pr.save()
+    new = pr
+    new.save()
+    return HttpResponse("Data updated")
 
 @login_required(login_url='/login')
 @permission_required('accounts.add_user')
