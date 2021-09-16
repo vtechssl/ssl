@@ -37,15 +37,7 @@ def postdata(request):
         return HttpResponse('serial no not found')
     print(pr)
     
-    pr.attribute = 'puppi'
-    pr.status = status
-    pr.battery_status = battery_status
-    pr.battery_voltage = battery_voltage
-    pr.power_panel = power_panel
-    pr.panel_voltage = panel_voltage
-    pr.energy_curr = Energy_curr
-    pr.total_energy = Total_energy
-    new = pr
+    new = product(serial_no=serial,location='Nagpur',attribute='0',status=status,battery_status=battery_status,battery_voltage=battery_voltage,power_panel=power_panel,panel_voltage=panel_voltage,energy_curr=Energy_curr,total_energy=Total_energy)
     new.save()
     return HttpResponse("Data updated")
 
