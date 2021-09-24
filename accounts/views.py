@@ -186,7 +186,7 @@ def login_view(request):
             login(request, user)
             if user.has_perm('auth.view_user'):
                 return redirect('/home')
-            elif user.has_perm('auth.view_product'):
+            elif user.has_perm('accounts.view_product'):
                 return redirect('Dashboard')
     return render(request,'../templates/login.html')
 
