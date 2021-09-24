@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+ {% block navbar %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">VTECH</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        </ul>
+      <form class="d-flex" method="GET" action="login">
+
+        <button class="btn btn-outline-success" type="submit">Logout</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+{% endblock navbar %}
+{% block body %}
+
+ <div class="main1">
+  <div class="parent paresh">
+    
+    <!-- <div class="div1"> 
+        <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#fe9365,#feb798); box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
+-webkit-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
+-moz-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);">
+            <div class="card-content">
+                 <p>Today Energy</p>
+                <h5>2.47(kwh)</h5>
+            </div>
+            <i class="fa fa-bolt fa-2x" style="color: white;" ></i>
+        </div> 
+    </div> -->
+    <!-- <div class="div2">
+      <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#0ac282,#0df3a3); box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
+-webkit-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
+-moz-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);" >
+        <div class="card-content">
+             <p>Total Energy</p>
+            <h5>113.62(Kwh)</h5>
+        </div>
+        <i class="fas fa-chart-bar fa-2x" style="color: white;" ></i>
+     </div> 
+   </div> -->
+     <div class="div3">
+        <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#fe5d70,#fe909d); box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
+-webkit-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
+-moz-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);">
+            <div class="card-content">
+                 <p>Total Users</p>
+                <h5>45</h5>
+            </div>
+            <i class="fab fa-free-code-camp fa-2x" style="color: white;" ></i>
+        </div>  </div>
+    <div class="div4"> <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#a19f03,#decc03); box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
+-webkit-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
+-moz-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);" >
+        <div class="card-content">
+             <p>Total Zones</p>
+            <h5>6</h5>
+        </div>
+        <i class="far fa-money-bill-alt fa-2x" style="color: white;" ></i>
+    </div> </div> 
+    <div class="div5"> <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#01a9ac,#01dbdf); box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
+-webkit-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
+-moz-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);" >
+        <div class="card-content">
+             <p>Total SSL</p>
+            <h5>{{total}}</h5>
+        </div>
+        <i class="fa fa-tachometer-alt fa-2x" style="color: white;" ></i>
+    </div> </div>
+    <div class="div6"> <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#17ac01,#65df01); box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
+-webkit-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
+-moz-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);">
+        <div class="card-content">
+             <p>Live SSL</p>
+            <h5>{{livessl}}</h5>
+        </div>
+        <i class="fa fa-tachometer-alt fa-2x" style="color: white;"></i>
+    </div> </div>
+    </div>
+</div>
+
+<div class="main2">
+  <h5 style="text-align: center; padding: 20px 0">Select</h5>
+  <div class="form" style="margin-left: 430px;">
+    <form
+      action="dashboard"
+      style="display: flex; flex-direction: row; padding-right: 20px"
+      method="GET"
+    >
+      {% csrf_token %}
+
+      <input class="select1" style="margin-right: 25px;" type="hidden" name="choice" value="users"/>
+      <input class="select1 select2" style="border-radius: 10px; color: white; background-color: transparent; padding:40px " type="submit" value="Users" />
+
+      
+    </form>
+    <form
+       style="margin-top: 20px;"
+      action="dashboard"
+      style="display: flex; flex-direction: row; padding-right: 20px"
+      method="GET"
+    >
+    <input class="select1" style="margin-right: 25px;" type="hidden" name="choice" value="zonals"/>
+<input class="select1 select2" style="border-radius: 10px; color: white; background-color: transparent; padding:40px" type="submit" value="Zone"/>
+    </form>
+   <div class="tablecard" style="border: 2px solid transparent; display: flex; align-items: center; justify-content: center;">
+
+  </div>
+  </div>
+</div>
+
+
+
+
+
+{% endblock body %}

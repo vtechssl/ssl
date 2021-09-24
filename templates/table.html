@@ -1,5 +1,5 @@
 {% extends "base.html" %} {% block body %}
-<table></table>
+
 
 <div class="main2">
   <h5 style="text-align: center; padding: 20px 0">SSL Serial Numbers</h5>
@@ -10,10 +10,6 @@
       method="POST"
     >
       {% csrf_token %}
-      <h6 class="select1" style="padding: 0 20px">Username</h6>
-      <input class="select1" type="text" name="name" />
-      <input class="select1" type="submit" />
-
       <h6 class="select1" style="padding: 0 20px">Date</h6>
       <input class="select1" type="date" name="date" />
       <input class="select1" type="submit" />

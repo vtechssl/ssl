@@ -1,10 +1,11 @@
 from django.shortcuts import render, HttpResponse, Http404, redirect
 from django.contrib.auth.models import User, Group, Permission
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import login_required, permission_required
 from .models import product
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import logout
 
 # Create your views here.
 
@@ -139,13 +140,16 @@ def ViewUsers(request):
         return
     pass
 
-# @login_required(login_url='/login')
+@login_required(login_url='/login')
 def ViewProduct(request):
     if request.method == 'POST':
         serial = request.POST['serial']
-        e_date = request.POST['date']
-        print(e_date)
-        products = product.objects.filter(serial_no=serial,updated_at__icontains=e_date)
+        print(request.POST)
+        e_date = request.POST.get('date')
+        if e_date is not None:
+            products = product.objects.filter(serial_no=serial,updated_at__icontains=e_date)
+        else:
+            products = product.objects.filter(serial_no=serial)
         if products is None:
             print('None')
             return Http404
@@ -170,35 +174,40 @@ def ChangePassword(request):
         user.set_password(password)
     return
 
-def login(request):
+def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
         print(request.POST)
-        user = authenticate(username=username, password=password)
+        user = authenticate(request,username=username, password=password)
         if user is None:
             return redirect('/login')
         else:
-            return redirect('/dashboard')
+            login(request, user)
+            if user.has_perm('auth.view_user'):
+                return redirect('/home')
+            elif user.has_perm('auth.view_product'):
+                return redirect('Dashboard')
     return render(request,'../templates/login.html')
 
 @login_required(login_url='/login')
-def logout(request):
-    return
+def logout_view(request):
+    logout(request)
 
 @login_required(login_url='/login')
 def ControlSSL(request):
     return
 
-# @login_required(login_url='/login')
-# @permission_required('accounts.add_user')
+@login_required(login_url='/login')
+# @permission_required('accounts.view_user')
 def dashboard(request):
-    if request.user.is_authenticated and request.method=='GET':
+    if request.method=='GET':
         name = request.user.username
-        products = product.objects.get(belongs_to__username=name).distinct()
+        print('Hi '+name)
+        products = product.objects.filter(belongs_to__username=name).values('serial_no').distinct()
         products = list(products)
-        livessl = product.objects.get(status='on').distinct().count()
-        total = product.objects.get(belongs_to__username=name).distinct().count()
+        livessl = product.objects.filter(belongs_to__username=name,status='on').values('serial_no').distinct().count()
+        total = product.objects.filter(belongs_to__username=name).values('serial_no').distinct().count()
         context = {
             'products': products,
             'livessl' : livessl,
@@ -208,10 +217,25 @@ def dashboard(request):
     elif request.user.is_authenticated and request.method=='POST':
         name = request.user.username
         serial = request.POST['serial']
-        products = product.objects.get(belongs_to__username=name,serial_no=serial).distinct()
+        products = product.objects.filter(belongs_to__username=name,serial_no=serial).values('serial_no').distinct()
         products = list(products)
+        livessl = product.objects.filter(status='on').values('serial_no').distinct().count()
+        total = product.objects.filter(belongs_to__username=name).values('serial_no').distinct().count()
         context = {
             'products': products,
+            'livessl' : livessl,
+            'total'   : total,
         }
         return render(request, '../templates/home.html',context)
     return redirect('/login')
+
+@login_required(login_url='/login')
+# @permission_required('accounts.view_users')
+def board(request):
+    if request.method == 'POST':
+        print(request.method)
+        if request.user.authenticated: 
+            choice = request.GET['choice']
+            return redirect('Dashboard')
+    print(request.method)
+    return render(request,'../templates/dashboard.html')
