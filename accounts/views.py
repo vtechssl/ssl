@@ -78,9 +78,9 @@ def CreateProduct(request):
     if request.method == 'POST' and request.user.is_superuser:
         serialno = request.POST['serial']
         location = request.POST['location']
-        product = product(serial_no=serialno,location=location,attribute='0')
-        product.belongs_to.add(request.user)
-        product.save()
+        products = product(serial_no=serialno,location=location,attribute='0')
+        products.belongs_to.add(request.user)
+        products.save()
     return Http404
 
 @login_required(login_url='/login')
@@ -90,7 +90,7 @@ def AssignUsertoProduct(request):
         serialno = request.POST['serial']
         username = request.POST['username']
         user = User.objects.get(username=username,is_active=True)
-        product = product.objects.get(serial_no=serialno)
+        products = product.objects.get(serial_no=serialno)
         product.belongs_to.add(user)
         product.save()
     return Http404
@@ -142,16 +142,17 @@ def ViewUsers(request):
 # @login_required(login_url='/login')
 def ViewProduct(request):
     if request.method == 'POST':
-        name = request.POST['name']
-        # e_date = request.POST['date']
-        products = product.objects.filter(belongs_to__username=name)
+        serial = request.POST['serial']
+        e_date = request.POST['date']
+        print(e_date)
+        products = product.objects.filter(serial_no=serial,updated_at__icontains=e_date)
         if products is None:
             print('None')
             return Http404
         products = list(products)
         products.reverse()
         users = [i.belongs_to.all() for i in products ]
-        print(products[0].belongs_to.all())
+        print(products[0].updated_at)
         context = {
             'products': products,
             'user': users
@@ -178,7 +179,7 @@ def login(request):
         if user is None:
             return redirect('/login')
         else:
-            return redirect('Table')
+            return redirect('/dashboard')
     return render(request,'../templates/login.html')
 
 @login_required(login_url='/login')
@@ -189,15 +190,28 @@ def logout(request):
 def ControlSSL(request):
     return
 
-@login_required(login_url='/login')
-@permission_required('accounts.add_user')
+# @login_required(login_url='/login')
+# @permission_required('accounts.add_user')
 def dashboard(request):
-    if request.method == "POST" and request.user.is_authenticated:
-        name = request.POST['agency']
-        agency = User.objects.get(first_name=name)
-        serialno = request.POST['serial']
-        product = product.objects.get(serial_no=serialno)
-        product.belongs_to.add(user)
-        product.save()
-        return redirect('/dashboard')
-    return redirect('/dashboard')
+    if request.user.is_authenticated and request.method=='GET':
+        name = request.user.username
+        products = product.objects.get(belongs_to__username=name).distinct()
+        products = list(products)
+        livessl = product.objects.get(status='on').distinct().count()
+        total = product.objects.get(belongs_to__username=name).distinct().count()
+        context = {
+            'products': products,
+            'livessl' : livessl,
+            'total'   : total,
+        }
+        return render(request, '../templates/home.html',context)
+    elif request.user.is_authenticated and request.method=='POST':
+        name = request.user.username
+        serial = request.POST['serial']
+        products = product.objects.get(belongs_to__username=name,serial_no=serial).distinct()
+        products = list(products)
+        context = {
+            'products': products,
+        }
+        return render(request, '../templates/home.html',context)
+    return redirect('/login')

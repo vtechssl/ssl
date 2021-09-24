@@ -20,3 +20,7 @@ urlpatterns = [
     path('developer_panel/', admin.site.urls),
     path('', include('accounts.urls')),
 ]
+
+admin.site.site_header  =  "VTECH ADMIN PANEL"  
+admin.site.site_title  =  "Administrator"
+
