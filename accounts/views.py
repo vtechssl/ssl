@@ -143,8 +143,6 @@ def ViewUsers(request):
 @login_required(login_url='/login')
 def ViewProduct(request):
     if request.method == 'POST':
-        serial = request.POST['serial']
-        print(request.POST)
         e_date = request.POST.get('date')
         if e_date is not None:
             products = product.objects.filter(serial_no=serial,updated_at__icontains=e_date)
