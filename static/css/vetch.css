@@ -190,8 +190,8 @@ tr:nth-child(even) {
 }
 
 .select2:hover{
-  background-color: white !important;
-  color: black !important;
+  background-color: #417690 !important;
+  color: white !important;
 
 }
 
@@ -209,4 +209,13 @@ tr:nth-child(even) {
 
 .navl{
   background-color: #417690 !important;
+}
+
+.select3:hover{
+  background-color: #417690 !important;
+  color: white !important;
+
+}
+.select3{
+  border-radius: 10px; color: black; background-color: transparent; padding:20px
 }

@@ -1,31 +1,24 @@
 {% extends "base.html" %}
  {% block navbar %}
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">VTECH</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
-        </li>
-        </ul>
-      <form class="d-flex" method="GET" action="login">
-
-        <button class="btn btn-outline-success" type="submit">Logout</button>
-      </form>
-    </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light navl">
+  <a class="navbar-brand" href="#">
+    <img src="../static/logoimage/logo.jpeg" width="110" height="40" class="d-inline-block align-top m-1 " alt="">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    {% comment %} <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      
+    </ul> {% endcomment %}
+    <ul class="nav navbar-nav ms-auto" id="navbarText">
+      <li><h6 style="color: white;">Welcome:</h6></li>
+      <li ><a href="#" style="text-decoration: none; color: yellow;  ">Logout</a></li>
+    </ul>
   </div>
 </nav>
 
@@ -38,7 +31,7 @@
   
     <div class="row" style="justify-content: space-between;">
       <div class="col-lg-6 col-sm-6">
-        <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center">
+        <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#01a9ac,#01dbdf);">
             <div class="card-content">
                  <p>Total Users</p>
                 <h5>45</h5>
@@ -47,9 +40,9 @@
       </div>
 
       <div class="col-lg-6 col-sm-6">
-        <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center">
+        <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#17ac01,#65df01);">
             <div class="card-content">
-                 <p>Total Users</p>
+                 <p>Total Zones</p>
                 <h5>45</h5>
             </div>
         </div>
@@ -58,18 +51,18 @@
 
     <div class="row mt-2" style="justify-content: space-between;">
       <div class="col-lg-6 col-sm-6">
-        <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center">
+        <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#bfc902,#f8ff6e);">
             <div class="card-content">
-                 <p>Total Users</p>
+                 <p>Total SSL</p>
                 <h5>45</h5>
             </div>
         </div>
       </div>
 
       <div class="col-lg-6 col-sm-6">
-        <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center">
+        <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#de4a00,#ff9747);">
             <div class="card-content">
-                 <p>Total Users</p>
+                 <p>Live SSL</p>
                 <h5>45</h5>
             </div>
         </div>
@@ -78,77 +71,71 @@
 
   </div>
     
-{% comment %}    
-     <div class="div3">
-        <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#fe5d70,#fe909d); box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
--webkit-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
--moz-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);">
-            <div class="card-content">
-                 <p>Total Users</p>
-                <h5>45</h5>
-            </div>
-            <i class="fab fa-free-code-camp fa-2x" style="color: white;" ></i>
-        </div>  </div>
-    <div class="div4"> <div class="card card1  d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#a19f03,#decc03); box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
--webkit-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
--moz-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);" >
-        <div class="card-content">
-             <p>Total Zones</p>
-            <h5>6</h5>
-        </div>
-        <i class="far fa-money-bill-alt fa-2x" style="color: white;" ></i>
-    </div> </div> 
-    <div class="div5"> <div class="card card1 d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#01a9ac,#01dbdf); box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
--webkit-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
--moz-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);" >
-        <div class="card-content">
-             <p>Total SSL</p>
-            <h5>{{total}}</h5>
-        </div>
-        <i class="fa fa-tachometer-alt fa-2x" style="color: white;" ></i>
-    </div> </div>
-    <div class="div6"> <div class="card card1 d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#17ac01,#65df01); box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
--webkit-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
--moz-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);">
-        <div class="card-content">
-             <p>Live SSL</p>
-            <h5>{{livessl}}</h5>
-        </div>
-        <i class="fa fa-tachometer-alt fa-2x" style="color: white;"></i>
-    </div> </div> {% endcomment %}
+
   
 </div>
 
-<div class="main2">
+<div class="main2  p-3 d-flex flex-lg-row justify-content-center">
+<div class="container">
   <h5 style="text-align: center; padding: 20px 0">Select</h5>
-  <div class="form" style="margin-left: 430px;">
-    <form
-      action="dashboard"
-      style="display: flex; flex-direction: row; padding-right: 20px"
-      method="GET"
-    >
-      {% csrf_token %}
+    <div class="row" style="justify-content: center;">
+      <div class="col-lg-1 col-sm-2">
+        {% comment %} <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center"> {% endcomment %}
+            <div class="card-content d-flex flex-lg-row align-items-lg-center justify-content-center">
+                <form
+                  action="dashboard"
+                  style="display: flex; flex-direction: row;"
+                  method="GET"
+                  >
+                   {% csrf_token %}
 
-      <input class="select1" style="margin-right: 25px;" type="hidden" name="choice" value="users"/>
-      <input class="select1 select2" style="border-radius: 10px; color: black; background-color: transparent; padding:40px " type="submit" value="Users" />
+                     <input type="hidden" name="choice" value="users"/>
+                     <input style="border-radius: 10px; color: black; background-color: transparent; padding:20px" type="submit" value="Users" />
 
       
-    </form>
-    <form
-       style="margin-top: 20px;"
-      action="dashboard"
-      style="display: flex; flex-direction: row; padding-right: 20px"
-      method="GET"
-    >
-    <input class="select1" style="margin-right: 25px;" type="hidden" name="choice" value="zonals"/>
-<input class="select1 select2" style="border-radius: 10px; color: black; background-color: transparent; padding:40px" type="submit" value="Zone"/>
-    </form>
-   <div class="tablecard" style="border: 2px solid transparent; display: flex; align-items: center; justify-content: center;">
+                </form>
+            </div>
+        {% comment %} </div> X {% endcomment %}
+      </div>
+
+      
+    </div>
+
+    <div class="row mt-2" style="justify-content: center;">
+      <div class="col-lg-3 col-sm-3">
+        {% comment %} <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center"> {% endcomment %}
+            <div class="card-content d-flex flex-lg-row align-items-lg-center justify-content-center" >
+                 <form
+                  
+                   action="dashboard"
+                   style="display: flex; flex-direction: row;"
+                     method="GET"
+                   >
+                    <input  style="margin-right: 25px;" type="hidden" name="choice" value="zonals"/>
+                    <input  style="border-radius: 10px; color: black; background-color: transparent; padding:20px" type="submit" value="Zone"/>
+                   </form>
+            </div>
+        {% comment %} </div> {% endcomment %}
+      </div>
+
+      
+    </div>
 
   </div>
-  </div>
+    
+  
+  
+</div>
+<footer id="footer">
+
+
+<div class="footer-inner card-footer text-muted">
+<div class="container pb-2 pt-2 navl" style="display: flex; text-align: center; justify-content: center; color:white">
+  Copyright�2021 - VTECH SUN-1.0 <br>
+</div>
 </div>
 
+</footer>
 
 
 

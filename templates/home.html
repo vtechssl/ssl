@@ -1,30 +1,23 @@
 {% extends "base.html" %} {% block navbar %}
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">VTECH</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
-        </li>
-        </ul>
-      <form class="d-flex" method="GET" action="login">
-
-        <button class="btn btn-outline-success" type="submit">Logout</button>
-      </form>
-    </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light navl">
+  <a class="navbar-brand" href="#">
+    <img src="../static/logoimage/logo.jpeg" width="110" height="40" class="d-inline-block align-top m-1 " alt="">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    {% comment %} <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      
+    </ul> {% endcomment %}
+    <ul class="nav navbar-nav ms-auto" id="navbarText">
+      <li><h6 style="color: white;">Welcome:</h6></li>
+      <li ><a href="#" style="text-decoration: none; color: yellow;  ">Logout</a></li>
+    </ul>
   </div>
 </nav>
 
@@ -32,119 +25,103 @@
 
 {% block body %}
 
-<div class="main1">
-  <div class="parent">
-    
-    <!-- <div class="div1"> 
-        <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#fe9365,#feb798); box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
--webkit-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
--moz-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);">
+<div class="main1 p-3 d-flex flex-lg-row justify-content-center">
+
+ <div class="container">
+  
+    {% comment %} <div class="row" style="justify-content: space-between;">
+      <div class="col-lg-6 col-sm-6">
+        <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#01a9ac,#01dbdf);">
             <div class="card-content">
-                 <p>Today Energy</p>
-                <h5>2.47(kwh)</h5>
+                 <p>Total Users</p>
+                <h5>45</h5>
             </div>
-            <i class="fa fa-bolt fa-2x" style="color: white;" ></i>
-        </div> 
-    </div> -->
-    <!-- <div class="div2">
-      <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#0ac282,#0df3a3); box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
--webkit-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
--moz-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);" >
-        <div class="card-content">
-             <p>Total Energy</p>
-            <h5>113.62(Kwh)</h5>
         </div>
-        <i class="fas fa-chart-bar fa-2x" style="color: white;" ></i>
-     </div> 
-   </div> -->
-    <!-- <div class="div3">
-        <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#fe5d70,#fe909d); box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
--webkit-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
--moz-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);">
+      </div>
+
+      <div class="col-lg-6 col-sm-6">
+        <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#17ac01,#65df01);">
             <div class="card-content">
-                 <p>Co2 Reduced</p>
-                <h5>45.58(Tons)</h5>
+                 <p>Total Zones</p>
+                <h5>45</h5>
             </div>
-            <i class="fab fa-free-code-camp fa-2x" style="color: white;" ></i>
-        </div>  </div> -->
-    <!-- <div class="div4"> <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#a19f03,#decc03); box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
--webkit-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
--moz-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);" >
-        <div class="card-content">
-             <p>Money Saved</p>
-            <h5>6131.85(Rs)</h5>
         </div>
-        <i class="far fa-money-bill-alt fa-2x" style="color: white;" ></i>
-    </div> </div> -->
-    <div class="div5"> <div class="card card1  d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#01a9ac,#01dbdf); box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
--webkit-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
--moz-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);" >
-        <div class="card-content">
-             <p>Total SSL</p>
-            <h5>{{total}}</h5>
+      </div>
+    </div> {% endcomment %}
+
+    <div class="row mt-2" style="justify-content: space-between;">
+      <div class="col-lg-6 col-sm-6">
+        <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#bfc902,#f8ff6e);">
+            <div class="card-content">
+                 <p>Total SSL</p>
+                <h5>45</h5>
+            </div>
         </div>
-        <i class="fa fa-tachometer-alt fa-2x" style="color: white;" ></i>
-    </div> </div>
-    <div class="div6"> <div class="card card1  d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#17ac01,#65df01); box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
--webkit-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);
--moz-box-shadow: 0px 9px 13px 6px rgba(0,0,0,0.18);">
-        <div class="card-content">
-             <p>Live SSL</p>
-            <h5>{{livessl}}</h5>
+      </div>
+
+      <div class="col-lg-6 col-sm-6">
+        <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#de4a00,#ff9747);">
+            <div class="card-content">
+                 <p>Live SSL</p>
+                <h5>45</h5>
+            </div>
         </div>
-        <i class="fa fa-tachometer-alt fa-2x" style="color: white;"></i>
-    </div> </div>
+      </div>
     </div>
+
+  </div>
+    
+
+  
 </div>
 
 
 <div class="main2">
   <h5 style="text-align: center; padding: 20px 0">SSL Serial Numbers</h5>
-  <div class="form">
-    <form
-      action="dashboard"
-      style="display: flex; flex-direction: row; padding-right: 20px"
-      method="POST"
-    >
-      {% csrf_token %}
-      <h6 class="select1" style="padding: 0 20px">Serial no.</h6>
-      <input class="select1" style="margin-right: 25px;" type="text" name="serial" />
-      <input class="select1 select2" style="border-radius: 10px; color: white; background-color: transparent; " type="submit" />
+  <div class="row" style="justify-content: space-between;">
+      <div class="col-lg-6 col-sm-6">
+        
+            <div class="card-content">
+                 <form
+                 action="dashboard"
+                 style="display: flex; flex-direction: row; padding-right: 20px"
+                 method="POST"
+                 >
+                 {% csrf_token %}
+                 <h6 class="select1" style="padding: 0 20px">Serial no.</h6>
+                 <input style="margin-right: 20px;" type="text" name="serial" placeholder="Serial no."/>
+                 <input style="border-radius: 10px; color:black; background-color: transparent; " type="submit" value="Submit"/>
 
-      <!-- <h6 class="select1" style="padding: 0 20px">Date</h6>
-      <input class="select1" type="date" name"date" />
-      <input class="select1" type="submit" /> -->
-    </form>
+      
+                 </form>
+            </div>
+        
+      </div>
+
+      
+    </div>
+  <div class="form">
+    
    <div class="tablecard" style="border: 2px solid transparent; display: flex; align-items: center; justify-content: center;">
 
-     
-    <table class="tbody" style="padding: 20px 0px; height: 500px; margin-left: 28%;" >
-      <tr>
-        <th class="tabletr">Serial no.</th>
-        <!-- <th>Created at</th>
-        <th>Last Communication</th> -->
+     <table class="table table-striped">
+  <thead>
+    <tr>
+      <th class="tabletr">Serial no.</th>
+    
         <th class="tabletr">SSL Status</th>
-        <!-- <th>Battery Status</th>
-        <th>Battery Voltage (V)</th>
-        <th>Panel Power (W)</th>
-        <th>Panel Voltage (V)</th>
-        <th>Energy Today</th>
-        <th>Total Energy</th> -->
+       
         <th class="tabletr">Fault</th>
         <th class="tabletr">View Data</th>
-      </tr>
+    </tr>
+  </thead>
+  <tbody>
       {% for p in products %}
       <tr>
         <td>{{p.serial_no}}</td>
-        <!-- <td>{{p.created_at.date}}</td>
-        <td>{{p.updated_at}}</td> -->
+        
         <td>{{p.status}}</td>
-        <!-- <td>{{p.battery_status}}</td>
-        <td>{{p.battery_voltage}}</td>
-        <td>{{p.power_panel}}</td>
-        <td>{{p.panel_voltage}}</td>
-        <td>{{p.energy_curr}}</td>
-        <td>{{p.total_energy}}</td> -->
+       
         <td> No Fault </td>
         <td><form action="table" method="POST">
           {% csrf_token %}
@@ -153,21 +130,24 @@
         </form></td>
       </tr>
       {% endfor %}
-    </table>
+  </tbody>
+</table>
+
+    
   </div>
   </div>
 </div>
 
+</div>
 <footer id="footer">
 
 
-<div class="footer-inner">
-<div class="container pb-2 pt-2" style="display: flex; text-align: center; justify-content: center; background-color: rgba(163, 163, 163, 0.61);">
-  Copyright�2020 - VTECH SUN-1.0 <br>
+<div class="footer-inner card-footer text-muted">
+<div class="container pb-2 pt-2 navl" style="display: flex; text-align: center; justify-content: center; color:white">
+  Copyright�2021 - VTECH SUN-1.0 <br>
 </div>
 </div>
 
 </footer>
-</div>
 
 {% endblock body %}
