@@ -1,4 +1,31 @@
-{% extends "base.html" %} {% block body %}
+{% extends "base.html" %} 
+
+{% block navbar %}
+
+<nav class="navbar navbar-expand-lg navbar navl">
+  <a class="navbar-brand" href="#">
+    <img src="../static/logoimage/logo.jpeg" width="110" height="40" class="d-inline-block align-top m-1 " alt="">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    {% comment %} <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      
+    </ul> {% endcomment %}
+    <ul class="nav navbar-nav ms-auto" id="navbarText">
+      <li><h6 style="color: white;">Welcome:</h6></li>
+      <li ><a href="#" style="text-decoration: none; color: yellow;  ">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+
+{% endblock navbar %}
+
+{% block body %}
 
 
 <div class="main2">
