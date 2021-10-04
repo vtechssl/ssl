@@ -29,6 +29,7 @@ def postdata(request):
     panel_voltage = request.POST["panelvolt"]
     Energy_curr = request.POST["engcurr"]
     Total_energy = request.POST["totaleng"]
+    print(serial)
     
     pr = product.objects.filter(serial_no=serial)
 
