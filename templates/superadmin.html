@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block navbar %}
+
+
+
+
+{% endblock navbar %}
+ {% block body %}
+
+
+<body class="g-sidenav-show  bg-gray-100">
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-5 " id="sidenav-main">
+    <div class="sidenav-header">
+      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+      <a class="navbar-brand" href="#">
+    <img src="../static/logoimage/logo.jpeg" width="110" height="40" class="d-inline-block align-top m-1 " alt="">
+  </a>
+    </div>
+    <hr class="horizontal dark mt-0">
+    <div class="collapse navbar-collapse  w-auto  max-height-vh-100 h-100" id="sidenav-collapse-main">
+      <ul class="nav flex-column">
+
+      
+        <li class="nav-item">
+          <a class="nav-link  active" href="dashboard">
+            <span class="nav-link-text ms-1">Agency</span>
+          </a>
+        </li>
+   
+       
+      </ul>
+    </div>
+   
+  </aside>
+  <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+    
+            <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                <div class="sidenav-toggler-inner">
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                </div>
+              </a>
+            </li>
+            
+              
+            
+              
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+     
+      <footer id="footer">
+
+
+<div class="footer-inner card-footer text-muted">
+<div class="container pb-2 pt-2 navl" style="display: flex; text-align: center; justify-content: center; color:white">
+  Copyright�2021 - VTECH SUN-1.0 <br>
+</div>
+</div>
+
+</footer>
+    </div>
+  </main>
+  
+  </div>
+
+
+          {% csrf_token %}
+     
+{% endblock body %}

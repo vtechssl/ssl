@@ -11,7 +11,7 @@ from django.contrib.auth import logout
 
 # Home Page 
 def index(request):
-    return render(request, '../templates/admin.html')
+    return render(request, '../templates/superadmin.html')
 @csrf_exempt
 def postdata(request):
     print()
@@ -204,8 +204,9 @@ def dashboard(request):
     if request.method=='GET':
         name = request.user.username
         print('Hi '+name)
-        products = product.objects.filter(belongs_to__username=name).values('serial_no').distinct()
+        products = product.objects.filter(belongs_to__username=name)
         products = list(products)
+        print(products[0].serial_no)
         livessl = product.objects.filter(belongs_to__username=name,status='on').values('serial_no').distinct().count()
         total = product.objects.filter(belongs_to__username=name).values('serial_no').distinct().count()
         context = {
@@ -213,7 +214,7 @@ def dashboard(request):
             'livessl' : livessl,
             'total'   : total,
         }
-        return render(request, '../templates/home.html',context)
+        return render(request, '../templates/table.html',context)
     elif request.user.is_authenticated and request.method=='POST':
         name = request.user.username
         serial = request.POST['serial']
@@ -226,7 +227,7 @@ def dashboard(request):
             'livessl' : livessl,
             'total'   : total,
         }
-        return render(request, '../templates/home.html',context)
+        return render(request, '../templates/table.html',context)
     return redirect('/login')
 
 @login_required(login_url='/login')
