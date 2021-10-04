@@ -101,9 +101,9 @@ th {
   padding: 8px;
 }
 
-tr:nth-child(even) {
+/* tr:nth-child(even) {
   background-color:#417691;
-}
+} */
 
 .main1,
 .main2 {
