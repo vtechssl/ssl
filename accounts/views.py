@@ -11,7 +11,7 @@ from django.contrib.auth import logout
 
 # Home Page 
 def index(request):
-    return render(request, '../templates/superadmin.html')
+    return render(request, '../templates/userlist.html')
 @csrf_exempt
 def postdata(request):
     print()
@@ -108,7 +108,7 @@ def DeleteUser(request):
     return Http404
 
 @login_required(login_url='/login')
-@permission_required('accounts.add_user')
+# @permission_required('accounts.add_user')
 def ViewAgencies(request):
     if request.user.is_superuser:
         agencies = User.objects.get(groups='Agencies')

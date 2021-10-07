@@ -107,7 +107,11 @@
      <table class="table table-striped">
   <thead>
     <tr>
-        <th class="tabletr">User</th>
+        <th class="tabletr">Serial no.</th>
+    
+        <th class="tabletr">Username</th>
+       
+        <th class="tabletr">Total SSL</th>
 
         <th class="tabletr">View Data</th>
     </tr>
@@ -116,7 +120,10 @@
       {% for p in products %}
       <tr>
         <td>{{p.serial_no}}</td>
+        
+        <td>{{p.status}}</td>
        
+        <td> No Fault </td>
         <td><form action="table" method="POST">
           {% csrf_token %}
           <input type="hidden" name="serial" value="{{p.serial_no}}">
