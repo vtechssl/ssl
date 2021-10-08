@@ -200,7 +200,7 @@ tr:nth-child(even) {
   opacity: 0.9;
 }
 .background{
-  background-image: url(../logoimage/slider_1.jpg);
+  background-image: url(../logoimage/bg2.jpg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
