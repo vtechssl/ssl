@@ -200,8 +200,8 @@ def ControlSSL(request):
     return
 
 @login_required(login_url='/login')
-# @permission_required('accounts.view_user')
-def dashboard(request):
+@permission_required('accounts.view_user')
+def table(request):
     if request.method=='GET':
         name = request.user.username
         print('Hi '+name)
@@ -232,7 +232,7 @@ def dashboard(request):
     return redirect('/login')
 
 @login_required(login_url='/login')
-# @permission_required('accounts.view_users')
+@permission_required('accounts.view_users')
 def board(request):
     if request.method == 'POST':
         print(request.method)
