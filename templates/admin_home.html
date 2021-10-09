@@ -15,8 +15,8 @@
       
     </ul> {% endcomment %}
     <ul class="nav navbar-nav ms-auto" id="navbarText">
-      <li><h6 style="color: white;">Welcome:</h6></li>
-      <li ><a href="#" style="text-decoration: none; color: yellow;  ">Logout</a></li>
+      <li><h6 style="color: white;">Welcome : {{ request.user.username }}</h6></li>
+      <li ><a href="logout" style="text-decoration: none; color: yellow;  ">Logout</a></li>
     </ul>
   </div>
 </nav>
@@ -63,16 +63,16 @@
     </tr>
    </thead>
    <tbody>
-      {% for p in products %}
+      {% for p in agency_list %}
       <tr>
-        <td>{{p.serial_no}}</td>
+        <td>{{p.username}}</td>
         
         {% comment %} <td>{{p.status}}</td>
        
         <td> No Fault </td> {% endcomment %}
-        <td><form action="table" method="POST">
+        <td><form action="UserList" method="GET">
           {% csrf_token %}
-          <input type="hidden" name="serial" value="{{p.serial_no}}">
+          <input type="hidden" name="username" value="{{p.username}}">
           <input class="select1 select2" style="border-radius: 10px; color: white; background-color: transparent; " type="submit" value="View Data"/>
         </form></td>
       </tr>

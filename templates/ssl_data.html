@@ -23,7 +23,9 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="nav navbar-nav ms-auto" id="navbarText">
-      <li><h6 style="color: white">Welcome:</h6></li>
+      <li>
+        <h6 style="color: white">Welcome : {{ request.user.username }}</h6>
+      </li>
       <li>
         <a href="#" style="text-decoration: none; color: yellow">Logout</a>
       </li>
