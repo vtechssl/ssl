@@ -8,52 +8,145 @@
  {% block body %}
 
 
-<body class="g-sidenav-show  bg-gray-100">
-  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-5 " id="sidenav-main">
-    <div class="sidenav-header">
-      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand" href="#">
-    <img src="../static/logoimage/logo.jpeg" width="110" height="40" class="d-inline-block align-top m-1 " alt="">
-  </a>
+<!-- Vertical navbar -->
+<div class="vertical-nav bg-white" id="sidebar">
+  <div class="py-4 px-3 mb-4 bg-light">
+    <div class="media d-flex align-items-center">
+      <img src="../static/logoimage/logo.jpeg" width="110" height="40" class="d-inline-block align-top m-1 " alt="">
+      <div class="media-body">
+        
+      </div>
     </div>
-    <hr class="horizontal dark mt-0">
-    <div class="collapse navbar-collapse  w-auto  max-height-vh-100 h-100" id="sidenav-collapse-main">
-      <ul class="nav flex-column">
+  </div>
+
+  <p class="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0">Dashboard</p>
+
+  <ul class="nav flex-column bg-white mb-0">
+    <li class="nav-item">
+      <a href="#" class="nav-link text-dark bg-light">
+                <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>
+                User
+            </a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link text-dark">
+                <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
+                Agency
+            </a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link text-dark">
+                <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
+                Register SSL
+            </a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link text-dark">
+                <i class="fa fa-picture-o mr-3 text-primary fa-fw"></i>
+                Assign SSL
+            </a>
+    </li>
+  </ul>
+
+  {% comment %} <p class="text-gray font-weight-bold text-uppercase px-3 small py-4 mb-0">Charts</p> {% endcomment %}
+
+  
+  </ul>
+</div>
+<!-- End vertical navbar -->
+
+
+<!-- Page content holder -->
+<div class="page-content p-3" id="content">
+  <!-- Toggle button -->
+  <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm p-1 mb-4" data-bs-target="#sidebar"><i class="fa fa-bars mr-2"></i><small class="text-uppercase font-weight-bold">Toggle</small></button>
+      
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+  Launch demo mo dal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main2">
+  <h5 style="text-align: center; padding: 20px 0">SSL Serial Numbers</h5>
+  <div class="row" style="justify-content: space-between;">
+      <div class="col-lg-6 col-sm-6">
+        
+            <div class="card-content">
+                 <form
+                 action="dashboard"
+                 style="display: flex; flex-direction: row; padding-right: 20px"
+                 method="POST"
+                 >
+                 {% csrf_token %}
+                 <h6 class="select1" style="padding: 0 20px">Name</h6>
+                 <input style="margin-right: 20px;" type="text" name="serial" placeholder="Search Name"/>
+                 <input style="border-radius: 10px; color:black; background-color: transparent; " type="submit" value="Submit"/>
 
       
-        <li class="nav-item">
-          <a class="nav-link  active" href="dashboard">
-            <span class="nav-link-text ms-1">Agency</span>
-          </a>
-        </li>
-   
-       
-      </ul>
-    </div>
-   
-  </aside>
-  <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
-    
-            <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-              <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
-                <div class="sidenav-toggler-inner">
-                  <i class="sidenav-toggler-line"></i>
-                  <i class="sidenav-toggler-line"></i>
-                  <i class="sidenav-toggler-line"></i>
-                </div>
-              </a>
-            </li>
-            
-              
-            
-              
-          </ul>
-        </div>
+                 </form>
+            </div>
+        
       </div>
-    </nav>
-    <!-- End Navbar -->
-     
-      <footer id="footer">
+
+      
+    </div>
+  <div class="form">
+    
+   <div class="tablecard m-2" style="border: 2px solid transparent; display: flex; align-items: center; justify-content: center;">
+
+     <table class="table table-striped">
+  <thead>
+    <tr>
+        <th class="tabletr">User</th>
+
+        <th class="tabletr">View Data</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for p in products %}
+      <tr>
+        <td>{{p.serial_no}}</td>
+       
+        <td><form action="table" method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="serial" value="{{p.serial_no}}">
+          <input class="select1 select2" style="border-radius: 10px; color: white; background-color: transparent; " type="submit" value="View Data"/>
+        </form></td>
+      </tr>
+      {% endfor %}
+  </tbody>
+</table>
+
+    
+  </div>
+  </div>
+</div>
+
+</div>
+<footer id="footer">
 
 
 <div class="footer-inner card-footer text-muted">
@@ -63,10 +156,15 @@
 </div>
 
 </footer>
-    </div>
-  </main>
+</div>
   
-  </div>
+<script> $(function() { 
+  $('#sidebarCollapse').on('click', function() {
+    $('#sidebar, #content').toggleClass('active');
+  });
+});</script>
+     
+    
 
 
           {% csrf_token %}

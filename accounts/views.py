@@ -11,7 +11,7 @@ from django.contrib.auth import logout
 
 # Home Page 
 def index(request):
-    return render(request, '../templates/ssllist.html')
+    return render(request, '../templates/superadmin.html')
 @csrf_exempt
 def postdata(request):
     print()
