@@ -30,7 +30,7 @@
             </a>
     </li>
     <li class="nav-item">
-      <a href="saagency.html" class="nav-link text-dark">
+      <a href="#" class="nav-link text-dark">
                 <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
                 Agency
             </a>
@@ -70,21 +70,19 @@
 </button>
 
 <!-- Modal -->
-      <div class="main2">
+     <div class="main2">
   <h5 style="text-align: center; padding: 20px 0">SSL Serial Numbers</h5>
   <div class="row" style="justify-content: space-between;">
       <div class="col-lg-6 col-sm-6">
         
             <div class="card-content">
                  <form
-                 action="dashboard"
-                 style="display: flex; flex-direction: row; padding-right: 20px"
-                 method="POST"
+                 action="dashboard" style="display: flex; flex-direction: row; padding-right: 20px" method="POST"
                  >
                  {% csrf_token %}
-                 <h6 class="select1" style="padding: 0 20px">Name</h6>
-                 <input style="margin-right: 20px;" type="text" name="serial" placeholder="Search Name"/>
-                 <input style="border-radius: 10px; color:black; background-color: transparent; " type="submit" value="Submit"/>
+                 <h6 class="select1" style="padding: 0 20px">Username</h6>
+                 <input style="margin-right: 20px;" type="text" name="serial" placeholder="Username"/>
+                 <input style="border-radius: 10px; color:black; background-color: transparent; " type="submit" value="Search"/>
 
       
                  </form>
@@ -98,19 +96,25 @@
     
    <div class="tablecard m-2" style="border: 2px solid transparent; display: flex; align-items: center; justify-content: center;">
 
-     <table class="table table-striped">
-  <thead>
-    <tr>
-        <th class="tabletr">User</th>
-
+<table class="table table-striped">
+   <thead>
+     <tr>
+      <th class="tabletr">Agency Name</th>
+    
+        {% comment %} <th class="tabletr">SSL Status</th>
+       
+        <th class="tabletr">Fault</th> {% endcomment %}
         <th class="tabletr">View Data</th>
     </tr>
-  </thead>
-  <tbody>
+   </thead>
+   <tbody>
       {% for p in products %}
       <tr>
         <td>{{p.serial_no}}</td>
+        
+        {% comment %} <td>{{p.status}}</td>
        
+        <td> No Fault </td> {% endcomment %}
         <td><form action="table" method="POST">
           {% csrf_token %}
           <input type="hidden" name="serial" value="{{p.serial_no}}">
@@ -118,7 +122,7 @@
         </form></td>
       </tr>
       {% endfor %}
-  </tbody>
+    </tbody>
 </table>
 
     
@@ -137,7 +141,7 @@
 </div>
 
 </footer>
-</div>
+
   
 <script> $(function() { 
   $('#sidebarCollapse').on('click', function() {
