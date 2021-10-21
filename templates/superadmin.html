@@ -10,9 +10,9 @@
 
 <!-- Vertical navbar -->
 <div class="vertical-nav bg-white" id="sidebar">
-  <div class="py-4 px-3 mb-4 bg-light">
-    <div class="media d-flex align-items-center">
-      <img src="../static/logoimage/logo.jpeg" width="110" height="40" class="d-inline-block align-top m-1 " alt="">
+  <div class="py-4 px-4 mb-4 bg-light">
+    <div class="media d-flex align-items-center justify-content-center">
+      <img src="../static/logoimage/logo.jpeg" width="110" height="40" class="d-inline-block align-center ml-4" alt="">
       <div class="media-body">
 
         
@@ -60,34 +60,81 @@
 <!-- Page content holder -->
 <div class="page-content p-3" id="content">
   <!-- Toggle button -->
-  <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm p-1 mb-4" data-bs-target="#sidebar"><i class="fa fa-bars mr-2"></i><small class="text-uppercase font-weight-bold">Toggle</small></button>
+  <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm p-1" data-bs-target="#sidebar"><i class="fa fa-bars mr-2"></i><small class="text-uppercase font-weight-bold">Toggle</small></button>
       
 
 {% comment %} Modal {% endcomment %}
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch demo modal
+<div class="d-flex flex-row-reverse m-3 mt-0">
+<button type="button" class="btn " data-toggle="modal" data-target="#exampleModal" style="background-color:#417690; color:white">
+  <b>+</b> Add User
 </button>
-
+</div>
 <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      {% comment %} User Information  {% endcomment %}
+ <form>
+ <div class="modal-body">
+  <div class="form-group">
+    <label for="exampleInputEmail1">Name</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+
+    <div class="form-group">
+    <label for="exampleInputPassword1">Zone</label>
+    <input type="text" class="form-control" id="exampleInputPassword1">
+  </div>
+  <select class="form-select mt-3 mb-1" aria-label="Default select example">
+  <option selected>Select Agency</option>
+  <option value="1">One</option>
+  <option value="2">Two</option>
+  <option value="3">Three</option>
+</select>
+
+  <div class="form-group">
+    <label for="exampleInputEmail1">Username</label>
+    <input type="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    
+  </div>
+  
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1">
+  </div>
+
+  <div class="form-group">
+    <label for="exampleInputPassword1">Confirm Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1">
+  </div>
+
+
+  
+      </div>
+      <div class="modal-footer">
+        
+        <button type="button" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
       <div class="main2">
-  <h5 style="text-align: center; padding: 20px 0">SSL Serial Numbers</h5>
+  <h5 style="text-align: center; padding: 20px 0">User List</h5>
   <div class="row" style="justify-content: space-between;">
       <div class="col-lg-6 col-sm-6">
         
             <div class="card-content">
-                 <form
-                 action="dashboard"
-                 style="display: flex; flex-direction: row; padding-right: 20px"
-                 method="POST"
-                 >
-                 {% csrf_token %}
-                 <h6 class="select1" style="padding: 0 20px">Name</h6>
-                 <input style="margin-right: 20px;" type="text" name="serial" placeholder="Search Name"/>
-                 <input style="border-radius: 10px; color:black; background-color: transparent; " type="submit" value="Submit"/>
-
-      
-                 </form>
+                  <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                  <br>
             </div>
         
       </div>
@@ -98,10 +145,14 @@
     
    <div class="tablecard m-2" style="border: 2px solid transparent; display: flex; align-items: center; justify-content: center;">
 
+{% comment %} Table {% endcomment %}
+
      <table class="table table-striped">
   <thead>
     <tr>
         <th class="tabletr">User</th>
+
+
 
         <th class="tabletr">View Data</th>
     </tr>
@@ -146,12 +197,16 @@
   });
 });</script>
 
-{% comment %} <script>
-document.getElementById('button').addEventListener('click',
-function(){
-  document.querySelector(".modal").style.display = "flex";
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
 });
-</script> {% endcomment %}
+</script>
 
 
           {% csrf_token %}
