@@ -1,32 +1,39 @@
-{% extends "base.html" %} 
-
-{% block navbar %}
+{% extends "base.html" %} {% block navbar %}
 
 <nav class="navbar navbar-expand-lg navbar navl">
   <a class="navbar-brand" href="#">
-    <img src="../static/logoimage/logo.jpeg" width="110" height="40" class="d-inline-block align-top m-1 " alt="">
+    <img
+      src="../static/logoimage/logo.jpeg"
+      width="110"
+      height="40"
+      class="d-inline-block align-top m-1"
+      alt=""
+    />
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarText"
+    aria-controls="navbarText"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarText">
-    {% comment %} <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      
-    </ul> {% endcomment %}
     <ul class="nav navbar-nav ms-auto" id="navbarText">
-      <li><h6 style="color: white;">Welcome:</h6></li>
-      <li ><a href="#" style="text-decoration: none; color: yellow;  ">Logout</a></li>
+      <li>
+        <h6 style="color: white">Welcome : {{ request.user.username }}</h6>
+      </li>
+      <li>
+        <a href="#" style="text-decoration: none; color: yellow">Logout</a>
+      </li>
     </ul>
   </div>
 </nav>
 
-{% endblock navbar %}
-
-{% block body %}
-
+{% endblock navbar %} {% block body %}
 
 <div class="main2">
   <h5 style="text-align: center; padding: 20px 0">SSL Serial Numbers</h5>
@@ -42,7 +49,7 @@
       <input class="select1" type="submit" />
     </form>
 
-    <table class="tbody" style="padding: 20px 0px; height: 500px;">
+    <table class="tbody" style="padding: 20px 0px; height: 500px">
       <tr>
         <th>Serial no.</th>
         <th>Created at</th>
@@ -68,7 +75,7 @@
         <td>{{p.panel_voltage}}</td>
         <td>{{p.energy_curr}}</td>
         <td>{{p.total_energy}}</td>
-        <td> No Fault </td>
+        <td>No Fault</td>
       </tr>
       {% endfor %}
     </table>

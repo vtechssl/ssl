@@ -19,3 +19,11 @@ class product(models.Model):
 
     def __str__(self):
         return f"{self.serial_no}"
+
+class ssl(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    serial_no  = models.CharField(max_length=255,null=False,unique=False)
+    belongs_to = models.ManyToManyField(User)
+
+    def __str__(self):
+        return f"{self.serial_no}"

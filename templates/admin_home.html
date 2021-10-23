@@ -15,8 +15,8 @@
       
     </ul> {% endcomment %}
     <ul class="nav navbar-nav ms-auto" id="navbarText">
-      <li><h6 style="color: white;">Welcome:</h6></li>
-      <li ><a href="#" style="text-decoration: none; color: yellow;  ">Logout</a></li>
+      <li><h6 style="color: white;">Welcome : {{ request.user.username }}</h6></li>
+      <li ><a href="logout" style="text-decoration: none; color: yellow;  ">Logout</a></li>
     </ul>
   </div>
 </nav>
@@ -25,57 +25,6 @@
 
 {% block body %}
 
-<div class="main1 p-3 d-flex flex-lg-row justify-content-center">
-
- <div class="container">
-  
-    {% comment %} <div class="row" style="justify-content: space-between;">
-      <div class="col-lg-6 col-sm-6">
-        <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#01a9ac,#01dbdf);">
-            <div class="card-content">
-                 <p>Total Users</p>
-                <h5>45</h5>
-            </div>
-        </div>
-      </div>
-
-      <div class="col-lg-6 col-sm-6">
-        <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#17ac01,#65df01);">
-            <div class="card-content">
-                 <p>Total Zones</p>
-                <h5>45</h5>
-            </div>
-        </div>
-      </div>
-    </div> {% endcomment %}
-
-    <div class="row mt-2" style="justify-content: space-between;">
-      <div class="col-lg-6 col-sm-6">
-        <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#bfc902,#f8ff6e);">
-            <div class="card-content">
-                 <p>Total SSL</p>
-                <h5>45</h5>
-            </div>
-        </div>
-      </div>
-
-      <div class="col-lg-6 col-sm-6">
-        <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#de4a00,#ff9747);">
-            <div class="card-content">
-                 <p>Live SSL</p>
-                <h5>Hello</h5>
-            </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-    
-
-  
-</div>
-
-
 <div class="main2">
   <h5 style="text-align: center; padding: 20px 0">SSL Serial Numbers</h5>
   <div class="row" style="justify-content: space-between;">
@@ -83,7 +32,7 @@
         
             <div class="card-content">
                  <form
-                 action="dashboard" style="display: flex; flex-direction: row; padding-right: 20px" method="POST"
+                 action="AgencyHome" style="display: flex; flex-direction: row; padding-right: 20px" method="POST"
                  >
                  {% csrf_token %}
                  <h6 class="select1" style="padding: 0 20px">Username</h6>
@@ -114,16 +63,16 @@
     </tr>
    </thead>
    <tbody>
-      {% for p in products %}
+      {% for p in agency_list %}
       <tr>
-        <td>{{p.serial_no}}</td>
+        <td>{{p.username}}</td>
         
         {% comment %} <td>{{p.status}}</td>
        
         <td> No Fault </td> {% endcomment %}
-        <td><form action="table" method="POST">
+        <td><form action="UserList" method="GET">
           {% csrf_token %}
-          <input type="hidden" name="serial" value="{{p.serial_no}}">
+          <input type="hidden" name="username" value="{{p.username}}">
           <input class="select1 select2" style="border-radius: 10px; color: white; background-color: transparent; " type="submit" value="View Data"/>
         </form></td>
       </tr>
