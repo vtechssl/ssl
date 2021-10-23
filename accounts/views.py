@@ -3,7 +3,7 @@ from django.contrib.auth.models import User, Group, Permission
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .models import product
+from .models import product, ssl
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 
@@ -22,6 +22,7 @@ def is_user(user):
 
 # Home Page 
 def index(request):
+
     return render(request, '../templates/ssllist.html')
 
 @csrf_exempt
@@ -63,8 +64,8 @@ def postdata(request):
 @login_required(login_url='/login')
 @user_passes_test(is_admin)
 def admin_home(request):
-    if request.method == 'GET':
-        if request.user.is_authenticated: 
+    if request.user.is_authenticated:
+        if request.method == 'GET': 
             agency_list = User.objects.filter(groups__name='Agency')
             print(agency_list)
             agency_list = list(agency_list)
@@ -93,16 +94,10 @@ def user_list(request):
         elif request.method == 'POST': 
             name = request.POST['username']
             location = request.POST['location']
-            if name is None:
-                userlist = agency.objects.filter(groups__name = request.user.username,username=name, last_name = location)
-            elif location is None:
-                userlist = agency.objects.filter(groups__name = request.user.username,username=name, last_name = location)
-            else:
-                userlist = agency.objects.filter(groups__name = name, last_name = location)
+            userlist = User.objects.filter(username=name, last_name = location)
             livessl = product.objects.filter(belongs_to__username=name,status='on').values('serial_no').distinct().count()
             total = product.objects.filter(belongs_to__username=name).values('serial_no').distinct().count()
             context = {
-                'products': products,
                 'livessl' : livessl,
                 'total'   : total,
                 'userlist':userlist,
@@ -117,16 +112,16 @@ def ssl_list(request):
     if request.user.is_authenticated:
         if request.method == 'GET':
             user = request.user.username
-            ssl = ssl.object.filter(belongs_to__username = user)
+            ssls = ssl.objects.filter(belongs_to__username = user)
             context = {
-                'ssl_list':ssl,
+                'ssl_list':ssls,
             }
             return render(request,'../templates/ssl_list.html')
         if request.method == 'POST':
             user = request.POST['user']
-            ssl = ssl.object.filter(belongs_to__username = user)
+            ssls = ssl.objects.filter(belongs_to__username = user)
             context = {
-                'ssl_list':ssl,
+                'ssl_list':ssls,
             }
             return render(request,'../templates/ssl_list.html')
     return Http404
@@ -137,9 +132,9 @@ def ssl_data(request):
     if request.user.is_authenticated:
         if request.method == 'GET':
             serial = request.GET['serial']
-            ssl = product.object.filter(serial_no = serial)
+            ssls = product.objects.filter(serial_no = serial)
             context = {
-                'ssl_data':ssl,
+                'ssl_data':ssls,
             }
             return render(request,'../templates/ssl_data.html')
     messages.warning(request, 'Invalid Request')
@@ -205,9 +200,9 @@ def modify_data(request):
             return redirect('modifyData')
         elif request.method == 'GET':
             serial = request.GET['serial']
-            ssl = product.object.filter(serial_no = serial)
+            ssls = product.object.filter(serial_no = serial)
             context = {
-                'ssl_data':ssl,
+                'ssl_data':ssls,
             }
             return render(request,'../templates/ssl_data_superadmin.html')
 
@@ -222,6 +217,8 @@ def addAgency(request):
             user = User.objects.create(username=username, password=password, first_name=first_name)
             user.save()
             group = Group.objects.get(name='Agency') 
+            group.user_set.add(user)
+            group = Group.objects.get(name='User')
             group.user_set.add(user)
             return redirect('AddAgency')
         elif request.method == 'GET':
@@ -239,6 +236,11 @@ def addAdmin(request):
             user.save()
             group = Group.objects.get(name='Admin') 
             group.user_set.add(user)
+            group = Group.objects.get(name='Agency') 
+            group.user_set.add(user)
+            group = Group.objects.get(name='User')
+            group.user_set.add(user)
+            new_group, created = Group.objects.get_or_create(name=username)
             return redirect('AddAgency')
         elif request.method == 'GET':
             return render(request, '../templates/add_admin.html')
@@ -251,9 +253,12 @@ def addUser(request):
             username = request.POST['username']
             password = request.POST['password']
             first_name = request.POST['name']
+            agency = request.POST['agency']
             user = User.objects.create(username=username, password=password, first_name=first_name)
             user.save()
             group = Group.objects.get(name='User') 
+            group.user_set.add(user)
+            group = Group.objects.get(name=agency) 
             group.user_set.add(user)
             return redirect('AddUser')
         elif request.method == 'GET':
@@ -286,3 +291,60 @@ def registerProduct(request):
                 'agency':agency,
             }
             return render(request, '../templates/register_product.html',context)
+
+@login_required(login_url='/login')
+def download(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            response = HttpResponse(content_type='application/ms-excel')
+            name = request.POST['file_name']
+            response['Content-Disposition'] = f'attachment; filename="{name}.xls"'
+
+
+            #creating workbook
+            wb = xlwt.Workbook(encoding='utf-8')
+
+            #adding sheet
+            ws = wb.add_sheet("sheet1")
+
+            # Sheet header, first row
+            row_num = 0
+
+            font_style = xlwt.XFStyle()
+            # headers are bold
+            font_style.font.bold = True
+
+            serial = request.POST['serial']
+            ssl = product.object.filter(serial_no = serial)
+
+            ssl = list(ssl)
+            ssl = ssl.reverse()
+
+            #column header names, you can use your own headers here
+            columns = ['Created at', 'Updated at', 'Serial No', 'Location', 'Status', 'Battery Status', 'Battery Voltage', 'Panel Power', 'Panel Voltage', 'Current Energy', 'Total Energy', 'Belongs to']
+
+            #write column headers in sheet
+            for col_num in range(len(columns)):
+                ws.write(row_num, col_num, columns[col_num], font_style)
+
+            # Sheet body, remaining rows
+            font_style = xlwt.XFStyle()
+
+            #get your data, from database or from a text file...
+            for row in ssl:
+                row_num = row_num + 1
+                ws.write(row_num, 0, row.created_at, font_style)
+                ws.write(row_num, 1, row.updated.at, font_style)
+                ws.write(row_num, 2, row.serial_no, font_style)
+                ws.write(row_num, 3, row.location, font_style)
+                ws.write(row_num, 4, row.status, font_style)
+                ws.write(row_num, 5, row.battery_status, font_style)
+                ws.write(row_num, 6, row.battery_voltage, font_style)
+                ws.write(row_num, 7, row.power_panel, font_style)
+                ws.write(row_num, 8, row.panel_voltage, font_style)
+                ws.write(row_num, 9, row.energy_curr, font_style)
+                ws.write(row_num, 10, row.total_energy, font_style)
+                ws.write(row_num, 11, row.belongs_to, font_style)
+
+            wb.save(response)
+            return response

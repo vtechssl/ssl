@@ -83,13 +83,14 @@
         
             <div class="card-content">
                  <form
-                 action="dashboard"
+                 action="AgencyHome"
                  style="display: flex; flex-direction: row; padding-right: 20px"
                  method="POST"
                  >
                  {% csrf_token %}
                  <h6 class="select1" style="padding: 0 20px">Name</h6>
-                 <input style="margin-right: 20px;" type="text" name="serial" placeholder="Search Name"/>
+                 <input style="margin-right: 20px;" type="text" name="username" placeholder="Search Name"/>
+                 <input style="margin-right: 20px;" type="text" name="location" placeholder="Location"/>
                  <input style="border-radius: 10px; color:black; background-color: transparent; " type="submit" value="Submit"/>
 
       
@@ -114,13 +115,13 @@
     </tr>
   </thead>
   <tbody>
-      {% for p in user_list %}
+      {% for p in userlist %}
       <tr>
         <td>{{p.username}}</td>
        
-        <td><form action="table" method="POST">
+        <td><form action="sslList" method="POST">
           {% csrf_token %}
-          <input type="hidden" name="serial" value="{{p.username}}">
+          <input type="hidden" name="user" value="{{p.username}}">
           <input class="select1 select2" style="border-radius: 10px; color: white; background-color: transparent; " type="submit" value="View Data"/>
         </form></td>
       </tr>

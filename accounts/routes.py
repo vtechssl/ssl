@@ -12,23 +12,16 @@ from django.contrib.auth import logout
 # Home Page 
 def index(request):
     return render(request, '../templates/ssllist.html')
-@csrf_exempt
-def postdata(request):
-    print()
-    print(request.headers)
-    print(request.body)
-    print()
-    print()
-    print()
-    print()
-    serial = request.POST["serial"]
-    status = request.POST["stat"]
-    battery_status = request.POST["batstat"]
-    battery_voltage = request.POST["volt"]
-    power_panel = request.POST["powpanel"]
-    panel_voltage = request.POST["panelvolt"]
-    Energy_curr = request.POST["engcurr"]
-    Total_energy = request.POST["totaleng"]
+    
+def postdata(message):
+    serial = message['serial']
+    status = message['stat']
+    battery_status = message['batstat']
+    battery_voltage = message['volt']
+    power_panel = message['powpanel']
+    panel_voltage = message['panelvolt']
+    Energy_curr = message['engcurr']
+    Total_energy = message['totaleng']
     print(serial)
     
     pr = product.objects.filter(serial_no=serial)
@@ -45,7 +38,6 @@ def postdata(request):
     for i in users:
         new.belongs_to.add(i)
     new.save()
-    return HttpResponse("Data updated")
 
 @login_required(login_url='/login')
 @permission_required('accounts.add_user')
