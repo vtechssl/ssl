@@ -1,13 +1,14 @@
 import paho.mqtt.client as mqtt
 import json
 import requests
+from collections import deque 
 
 # import django
 # django.setup()
 
 # from .routes import postdata 
 
-messages = []
+messages = deque()
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
         print("Connected to MQTT Broker!")

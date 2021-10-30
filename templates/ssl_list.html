@@ -98,14 +98,14 @@
     </tr>
   </thead>
   <tbody>
-      {% for p in products %}
+      {% for p in ssl_list %}
       <tr>
         <td>{{p.serial_no}}</td>
         
         <td>{{p.status}}</td>
        
         <td> No Fault </td>
-        <td><form action="table" method="POST">
+        <td><form action="sslData" method="POST">
           {% csrf_token %}
           <input type="hidden" name="serial" value="{{p.serial_no}}">
           <input class="select1 select2" style="border-radius: 10px; color: white; background-color: transparent; " type="submit" value="View Data"/>
@@ -126,7 +126,7 @@
 
 <div class="footer-inner card-footer text-muted">
 <div class="container pb-2 pt-2 navl" style="display: flex; text-align: center; justify-content: center; color:white">
-  Copyright�2021 - VTECH SUN-1.0 <br>
+  Copyright@2021 - VTECH SUN-1.0 <br>
 </div>
 </div>
 

@@ -2,10 +2,14 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('',views.login_view,name='Login'),
+    path('',views.index,name='Login'),
+    path('SuperAdmin',views.superadmin_home,name='SuperAdmin'),
+    path('SuperAdminU',views.superadmin_users,name='SuperAdminU'),
     path('AdminHome',views.admin_home,name='AdminHome'),
-    path('AgencyHome',views.user_list,name='AgencyHome'),
-    path('UserList',views.user_list,name='UserList'),
+    path('AddAgency',views.addAgency,name='AddAgency'),
+    path('AddUser',views.addUser,name='AddUser'),
+    path('AgencyHome',views.agency_home,name='AgencyHome'),
+    path('UserList',views.agency_home,name='UserList'),
     path('sslList',views.ssl_list,name='sslList'),
     path('sslData',views.ssl_data,name='SSLData'),
     path('post-data',views.postdata,name='post_data'),
