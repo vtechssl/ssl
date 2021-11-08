@@ -1,228 +1,176 @@
 {% extends "base.html" %}
 {% block navbar %}
-
-
-
-
 {% endblock navbar %}
- {% block body %}
-
-
+{% block body %}
 <!-- Vertical navbar -->
 <div class="vertical-nav bg-white" id="sidebar">
   <div class="py-3 px-3 mb-3 bg-light">
     <div class="media d-flex align-items-center justify-content-center">
       <img src="../static/logoimage/logo.jpeg" width="180" height="60" class="d-inline-block align-center ml-4" alt="">
       <div class="media-body">
-
-        
       </div>
     </div>
   </div>
-
   <p class="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0">Dashboard</p>
-
   <ul class="nav flex-column bg-white mb-0">
     <li class="nav-item ">
-      <a href="#" class="nav-link text-dark active">
-                <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>
-                Agency
-            </a>
+      <a href="SuperAdmin" class="nav-link text-dark active">
+      <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>
+      Agency
+      </a>
     </li>
     <li class="nav-item ">
-      <a href="superadmin_agency.html" class="nav-link text-dark">
-                <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
-                User
-            </a>
+      <a href="SuperAdminU" class="nav-link text-dark">
+      <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
+      User
+      </a>
     </li>
     <li class="nav-item">
       <a href="#" class="nav-link text-dark">
-                <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
-                Register SSL
-            </a>
+      <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
+      Register SSL
+      </a>
     </li>
     <li class="nav-item">
       <a href="#" class="nav-link text-dark">
-                <i class="fa fa-picture-o mr-3 text-primary fa-fw"></i>
-                Assign SSL
-            </a>
+      <i class="fa fa-picture-o mr-3 text-primary fa-fw"></i>
+      Assign SSL
+      </a>
     </li>
   </ul>
-
-  {% comment %} <p class="text-gray font-weight-bold text-uppercase px-3 small py-4 mb-0">Charts</p> {% endcomment %}
-
-  
+  {% comment %} 
+  <p class="text-gray font-weight-bold text-uppercase px-3 small py-4 mb-0">Charts</p>
+  {% endcomment %}
   </ul>
 </div>
 <!-- End vertical navbar -->
-
-
 <!-- Page content holder -->
 <div class="page-content p-3" id="content">
   <!-- Toggle button -->
   <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm p-1" data-bs-target="#sidebar"><i class="fa fa-bars mr-2"></i><small class="text-uppercase font-weight-bold">Toggle</small></button>
-      
-
-{% comment %} Modal {% endcomment %}
-<!-- Button trigger modal -->
-<div class="d-flex flex-row-reverse m-3 mt-0">
-<button type="button" class="btn " data-toggle="modal" data-target="#exampleModal" style="background-color:#417690; color:white">
-  <b>+</b> Add Agency
-</button>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  {% comment %} Modal {% endcomment %}
+  <!-- Button trigger modal -->
+  <div class="d-flex flex-row-reverse m-3 mt-0">
+    <button type="button" class="btn " data-toggle="modal" data-target="#exampleModal" style="background-color:#417690; color:white">
+    <b>+</b> Add Agency
+    </button>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      {% comment %} User Information  {% endcomment %}
- <form>
- <div class="modal-body">
-  <div class="form-group">
-    <label for="exampleInputEmail1">Agency Name</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    </div>
-
-    <div class="form-group">
-    <label for="exampleInputPassword1">Zone</label>
-    <input type="text" class="form-control" id="exampleInputPassword1">
-  </div>
-  <select class="form-select mt-3 mb-1" aria-label="Default select example">
-  <option selected>Select Agency</option>
-  <option value="1">One</option>
-  <option value="2">Two</option>
-  <option value="3">Three</option>
-</select>
-
-  <div class="form-group">
-    <label for="exampleInputEmail1">Username</label>
-    <input type="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    
-  </div>
-  
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
-  </div>
-
-  <div class="form-group">
-    <label for="exampleInputPassword1">Confirm Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
-  </div>
-
-
-  
-      </div>
-      <div class="modal-footer">
-        
-        <button type="button" class="btn btn-primary">Save</button>
-      </div>
-    </div>
-  </div>
-</div>
-</form>
-      <div class="main2">
-  <h5 style="text-align: center; padding: 20px 0">Agency List</h5>
-  <div class="row" style="justify-content: space-between;">
-      <div class="col-lg-6 col-sm-6">
-        
-            <div class="card-content">
-                  <input class="form-control" id="myInput" type="text" placeholder="Search..">
-                  <br>
-            </div>
-        
-      </div>
-
-      
-    </div>
-  <div class="form">
-    
- <div class="tablecard m-2" style="border: 2px solid transparent; display: flex; align-items: center; justify-content: center;">
-
-{% comment %} Table {% endcomment %}
-
-     <table class="table table-striped">
-  <thead>
-    <tr>
-        <th class="tabletr">Agency</th>
-
-
-
-        <th class="tabletr">View Data</th>
-    </tr>
-  </thead>
-  <tbody>
-      {% for p in products %}
-      <tr>
-        <td>{{p.serial_no}}</td>
-       
-        <td><form action="table" method="POST">
+          </button>
+        </div>
+        {% comment %} User Information  {% endcomment %}
+        <form action="AddAgency" method="POST">
           {% csrf_token %}
-          <input type="hidden" name="serial" value="{{p.serial_no}}">
-          <input class="select1 select2" style="border-radius: 10px; color: white; background-color: transparent; " type="submit" value="View Data"/>
-        </form></td>
-      </tr>
-      {% endfor %}
-  </tbody>
-</table>
-
-    
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Agency Name</label>
+              <input name="name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Username</label>
+              <input name="username" type="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input name="password" type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Confirm Password</label>
+              <input type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+      </div>
+    </div>
   </div>
+  </form>
+  <div class="main2">
+    <h5 style="text-align: center; padding: 20px 0">Agency List</h5>
+    <div class="row" style="justify-content: space-between;">
+      <div class="col-lg-6 col-sm-6">
+        <div class="card-content">
+          <input class="form-control" id="myInput" type="text" placeholder="Search..">
+          <br>
+        </div>
+      </div>
+    </div>
+    <div class="form">
+      <div class="tablecard m-2" style="border: 2px solid transparent; display: flex; align-items: center; justify-content: center;">
+        {% comment %} Table {% endcomment %}
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="tabletr">Agency</th>
+              <th class="tabletr">View Data</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in agency_list %}
+            <tr>
+              {% if p.first_name == "" %}
+              <td>No Name Present: {{p.username}} (Username)</td>
+              {% else %}
+              <td>{{p.first_name}}</td>
+              {% endif %}
+              <td>
+                <form action="AgencyHome" method="GET">
+                  {% csrf_token %}
+                  <input type="hidden" name="username" value="{{p.username}}">
+                  <input class="select1 select2" style="border-radius: 10px; color: white; background-color: transparent; " type="submit" value="View Data"/>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-</div>
-
 </div>
 <footer id="footer">
-
-
-<div class="footer-inner card-footer text-muted">
-<div class="container pb-2 pt-2 navl" style="display: flex; text-align: center; justify-content: center; color:white">
-  Copyright�2021 - VTECH SUN-1.0 <br>
-</div>
-</div>
-
+  <div class="footer-inner card-footer text-muted">
+    <div class="container pb-2 pt-2 navl" style="display: flex; text-align: center; justify-content: center; color:white">
+      Copyright@2021 - VTECH SUN-1.0 <br>
+    </div>
+  </div>
 </footer>
 </div>
-  
-  <!--Toggle Button-->
-
+<!--Toggle Button-->
 <script> 
-$(function() { 
-  $('#sidebarCollapse').on('click', function() {
-    $('#sidebar, #content').toggleClass('active');
-    console.log("hello")
-  });
-});
-</script>
-
-
-<!--Table-->
-<script>
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+  $(function() { 
+    $('#sidebarCollapse').on('click', function() {
+      $('#sidebar, #content').toggleClass('active');
+      console.log("hello")
     });
   });
-});
 </script>
-
-
-
+<!--Table-->
+<script>
+  $(document).ready(function(){
+    $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#myTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+</script>
 <!--Adding Active Class to Nav links in side bar-->
 <script>
- $(document).on('click', 'ul li', function(){
-   $(this).addClass('active').siblings().removeClass('active')
- })
-
+  $(document).on('click', 'ul li', function(){
+    $(this).addClass('active').siblings().removeClass('active')
+  })
+  
 </script>
-          {% csrf_token %}
-     
+{% csrf_token %}
 {% endblock body %}
+

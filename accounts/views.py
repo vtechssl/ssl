@@ -23,7 +23,7 @@ def is_user(user):
 # Home Page 
 def index(request):
 
-    return render(request, '../templates/ssllist.html')
+    return render(request, '../templates/superadmin.html')
 
 @csrf_exempt
 def postdata(request):
@@ -62,12 +62,38 @@ def postdata(request):
     return HttpResponse('Data updated')
 
 @login_required(login_url='/login')
+@user_passes_test(is_superadmin)
+def superadmin_home(request):
+    if request.user.is_authenticated:
+        if request.method == 'GET':
+            agency_list = User.objects.filter(groups__name='Agency')
+            agency_list = list(agency_list)
+            context={
+                'agency_list':agency_list,
+            }
+            return render(request, '../templates/superadmin.html',context)
+
+@login_required(login_url='/login')
+@user_passes_test(is_superadmin)
+def superadmin_users(request):
+    if request.user.is_authenticated:
+        if request.method == 'GET':
+            user_list = User.objects.filter(groups__name='User')
+            user_list = list(user_list)
+            agency_list = User.objects.filter(groups__name='Agency')
+            agency_list = list(agency_list)
+            context={
+                'user_list':user_list,
+                'agency_list':agency_list,
+            }
+            return render(request, '../templates/superadmin_user.html',context)
+
+@login_required(login_url='/login')
 @user_passes_test(is_admin)
 def admin_home(request):
     if request.user.is_authenticated:
         if request.method == 'GET': 
             agency_list = User.objects.filter(groups__name='Agency')
-            print(agency_list)
             agency_list = list(agency_list)
             context={
                 'agency_list':agency_list,
@@ -78,13 +104,19 @@ def admin_home(request):
 
 @login_required(login_url='/login')
 @user_passes_test(is_agency)
-def user_list(request):
+def agency_home(request):
     if request.user.is_authenticated:
         if request.method=='GET':
-            name = request.user.username
+            name=''
+            try:
+                name = request.GET['username']  
+            except:
+                name = request.user.username
+            print(name)
             livessl = product.objects.filter(belongs_to__username=name,status='on').values('serial_no').distinct().count()
             total = product.objects.filter(belongs_to__username=name).values('serial_no').distinct().count()
             users = User.objects.filter(groups__name = name)
+            print(users)
             context = {
                 'livessl' : livessl,
                 'total'   : total,
@@ -118,20 +150,22 @@ def ssl_list(request):
             }
             return render(request,'../templates/ssl_list.html')
         if request.method == 'POST':
-            user = request.POST['user']
+            user = request.POST['username']
             ssls = ssl.objects.filter(belongs_to__username = user)
+            ssls = list(ssls)
+            print(ssls)
             context = {
                 'ssl_list':ssls,
             }
-            return render(request,'../templates/ssl_list.html')
+            return render(request,'../templates/ssl_list.html',context)
     return Http404
 
 @login_required(login_url='/login')
 @user_passes_test(is_user)
 def ssl_data(request):
     if request.user.is_authenticated:
-        if request.method == 'GET':
-            serial = request.GET['serial']
+        if request.method == 'POST':
+            serial = request.POST['serial']
             ssls = product.objects.filter(serial_no = serial)
             context = {
                 'ssl_data':ssls,
@@ -151,8 +185,11 @@ def login_view(request):
             return redirect('Login')
         else:
             login(request, user)
+            print(Group.objects.all())
             messages.success(request, 'Login Successful')
-            if user.groups.filter(name='Admin').exists():
+            if user.groups.filter(name='SuperAdmin').exists():
+                return redirect('SuperadminHome')
+            elif user.groups.filter(name='Admin').exists():
                 return redirect('AdminHome')
             elif user.groups.filter(name='Agency').exists():
                 return redirect('AgencyHome')
@@ -218,9 +255,7 @@ def addAgency(request):
             user.save()
             group = Group.objects.get(name='Agency') 
             group.user_set.add(user)
-            group = Group.objects.get(name='User')
-            group.user_set.add(user)
-            return redirect('AddAgency')
+            return redirect('SuperAdmin')
         elif request.method == 'GET':
             return render(request, '../templates/add_agency.html')
 
@@ -236,14 +271,8 @@ def addAdmin(request):
             user.save()
             group = Group.objects.get(name='Admin') 
             group.user_set.add(user)
-            group = Group.objects.get(name='Agency') 
-            group.user_set.add(user)
-            group = Group.objects.get(name='User')
-            group.user_set.add(user)
             new_group, created = Group.objects.get_or_create(name=username)
-            return redirect('AddAgency')
-        elif request.method == 'GET':
-            return render(request, '../templates/add_admin.html')
+            return redirect('SuperAdmin')
 
 @login_required(login_url='/login')
 @user_passes_test(is_superadmin)
@@ -253,14 +282,15 @@ def addUser(request):
             username = request.POST['username']
             password = request.POST['password']
             first_name = request.POST['name']
+            location = request.POST['location']
             agency = request.POST['agency']
-            user = User.objects.create(username=username, password=password, first_name=first_name)
+            user = User.objects.create(username=username, password=password, first_name=first_name, last_name=location)
             user.save()
             group = Group.objects.get(name='User') 
             group.user_set.add(user)
             group = Group.objects.get(name=agency) 
             group.user_set.add(user)
-            return redirect('AddUser')
+            return redirect('SuperAdminU')
         elif request.method == 'GET':
             return render(request, '../templates/add_user.html')
 
