@@ -99,12 +99,15 @@ th {
   border: 1px solid #666565;
   text-align: left;
   padding: 8px;
+  color: black;
 }
 
 tr:nth-child(even) {
   background-color:#417691;
 }
-
+tr:nth-child(odd) {
+  color:black;
+}
 .main1,
 .main2 {
   background-color: #f8f8f8 !important;

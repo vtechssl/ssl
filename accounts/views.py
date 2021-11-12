@@ -188,7 +188,7 @@ def login_view(request):
             print(Group.objects.all())
             messages.success(request, 'Login Successful')
             if user.groups.filter(name='SuperAdmin').exists():
-                return redirect('SuperadminHome')
+                return redirect('SuperAdmin')
             elif user.groups.filter(name='Admin').exists():
                 return redirect('AdminHome')
             elif user.groups.filter(name='Agency').exists():
