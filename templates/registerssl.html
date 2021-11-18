@@ -24,19 +24,19 @@
 
   <ul class="nav flex-column bg-white mb-0">
     <li class="nav-item">
-      <a href="superadmin" class="nav-link text-dark active">
+      <a href="SuperAdmin" class="nav-link text-dark active">
                 <i class="fa fa-sitemap mr-3 text-primary fa-fw"></i>
                 Agency
             </a>
     </li>
     <li class="nav-item">
-      <a href="superadmin_agency" class="nav-link text-dark">
+      <a href="SuperAdminU" class="nav-link text-dark">
                 <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
                 User
             </a>
     </li>
     <li class="nav-item">   
-      <a href="#" class="nav-link text-dark">
+      <a href="RegisterSSL" class="nav-link text-dark">
                 <i class="fa fa-plus mr-3 text-primary fa-fw"></i>
                 <button type="button" class="btn " data-toggle="modal" data-target="#exampleModal" style="background-color:transparent; color:black">
   Register SSL
@@ -78,17 +78,18 @@
       </div>
 
       {% comment %} User Information  {% endcomment %}
- <form>
+ <form method="POST" action="RegisterSSL">
+ {% csrf_token %}
  <div class="modal-body">
   <div class="form-group">
     <label for="exampleInputEmail1">Serial no.</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <input type="text" class="form-control" id="exampleInputEmail1" name="serial" aria-describedby="emailHelp">
     </div>
 
       </div>
       <div class="modal-footer">
         
-        <button type="button" class="btn btn-primary">Register</button>
+        <button type="submit" class="btn btn-primary">Register</button>
       </div>
     </div>
   </div>
@@ -129,14 +130,10 @@
       {% for p in products %}
       <tr>
         <td>{{p.serial_no}}</td>
-        
-        {% comment %} <td>{{p.status}}</td>
-       
-        <td> No Fault </td> {% endcomment %}
         <td><form action="table" method="POST">
           {% csrf_token %}
           <input type="hidden" name="serial" value="{{p.serial_no}}">
-          <input class="select1 select2" style="border-radius: 10px; color: white; background-color: transparent; " type="submit" value="View Data"/>
+          <input class="select1 select2" style="border-radius: 10px; color: white; background-color: transparent; " type="submit" value="Assign"/>
         </form></td>
       </tr>
       {% endfor %}
