@@ -66,11 +66,11 @@
         <th>Energy Today</th>
         <th>Total Energy</th>
         <th>Fault</th>
-        {% if request.user.is_superuser %}
+        {% comment %} {% if request.user.is_superuser %}
         <th>Modify</th>
         {% endif %} {% if request.user.is_superuser %}
         <th>Delete</th>
-        {% endif %}
+        {% endif %} {% endcomment %}
       </tr>
       {% for p in ssl_data %}
       <tr>
@@ -85,6 +85,7 @@
         <td>{{p.energy_curr}}</td>
         <td>{{p.total_energy}}</td>
         <td>No Fault</td>
+        {% comment %}
         <td>
           {% if request.user.is_superuser %}
           <form action="delete" method="PUT">
@@ -99,6 +100,7 @@
           </form>
           {% endif %}
         </td>
+        {% endcomment %}
       </tr>
       {% endfor %}
     </table>

@@ -95,9 +95,9 @@
        
         <th class="tabletr">Fault</th>
         <th class="tabletr">View Data</th>
-        {% if request.user.is_superuser %}
+        {% comment %} {% if request.user.is_superuser %}
         <th>Delete</th>
-        {% endif %}
+        {% endif %} {% endcomment %}
     </tr>
   </thead>
   <tbody>
