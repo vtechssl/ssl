@@ -27,7 +27,7 @@
         <h6 style="color: white">Welcome : {{ request.user.username }}</h6>
       </li>
       <li>
-        <a href="#" style="text-decoration: none; color: yellow">Logout</a>
+        <a href="logout" style="text-decoration: none; color: yellow">Logout</a>
       </li>
     </ul>
   </div>
@@ -39,14 +39,18 @@
   <h5 style="text-align: center; padding: 20px 0">SSL Serial Numbers</h5>
   <div class="form">
     <form
-      action="table"
+      action="download"
       style="display: flex; flex-direction: row; padding-right: 20px"
       method="POST"
     >
       {% csrf_token %}
-      <h6 class="select1" style="padding: 0 20px">Date</h6>
-      <input class="select1" type="date" name="date" />
-      <input class="select1" type="submit" />
+      <input
+        type="text"
+        name="serial"
+        placeholder="Enter serial no for confirmation"
+      />
+      <input type="hidden" name="file_name" value="{{request.user.username}}" />
+      <input class="select1" type="submit" value="Download" />
     </form>
 
     <table class="tbody" style="padding: 20px 0px; height: 500px">
@@ -62,8 +66,9 @@
         <th>Energy Today</th>
         <th>Total Energy</th>
         <th>Fault</th>
-        <th>Modify</th>
         {% if request.user.is_superuser %}
+        <th>Modify</th>
+        {% endif %} {% if request.user.is_superuser %}
         <th>Delete</th>
         {% endif %}
       </tr>

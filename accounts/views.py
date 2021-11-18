@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import product, ssl
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
+import xlwt
 
 # Create your views here.
 def is_superadmin(user):
@@ -139,16 +140,17 @@ def agency_home(request):
     return Http404
 
 @login_required(login_url='/login')
-@user_passes_test(is_user)
+# @user_passes_test(is_user)
 def ssl_list(request):
     if request.user.is_authenticated:
         if request.method == 'GET':
             user = request.user.username
             ssls = ssl.objects.filter(belongs_to__username = user)
+            ssls = list(ssls)
             context = {
                 'ssl_list':ssls,
             }
-            return render(request,'../templates/ssl_list.html')
+            return render(request,'../templates/ssl_list.html',context)
         if request.method == 'POST':
             user = request.POST['username']
             ssls = ssl.objects.filter(belongs_to__username = user)
@@ -161,7 +163,7 @@ def ssl_list(request):
     return Http404
 
 @login_required(login_url='/login')
-@user_passes_test(is_user)
+# @user_passes_test(is_user)
 def ssl_data(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
@@ -202,6 +204,10 @@ def logout_view(request):
     messages.info(request, 'Logout Successful')
     logout(request)
     return redirect('Login')
+
+@login_required(login_url='login')
+def temp(request):
+    return redirect('sslList')
 
 @login_required(login_url='/login')
 @user_passes_test(is_superadmin)
@@ -310,26 +316,22 @@ def registerProduct(request):
                 'products':ssls,
             }
             return render(request, '../templates/registerssl.html',context)
-        elif request.method == 'PUT':
-            serial = request.POST['serial']
-            agency=''
-            user=''
-            try:
-                try:
-                    agency = request.POST['Agency']
-                except:
-                    return redirect('RegisterSSL')
-                user = request.POST['User']
-            except:
-                new_ssl = ssl(serial_no=serial)
-                new_ssl.save()
-                new_ssl.belongs_to.add(agency)
-                return redirect('RegisterSSL')
-            new_ssl = ssl(serial_no=serial)
-            new_ssl.save()
-            new_ssl.belongs_to.add(agency)
-            new_ssl.belongs_to.add(user)
-            return redirect('RegisterSSL')
+
+@login_required(login_url='/login')
+@user_passes_test(is_superadmin)
+def Assign(request):
+    if request.method=='POST':
+        serial = request.POST['serial']
+        agency=request.POST['agency']
+        user=request.POST['user']
+        print(user)
+        new_ssl = ssl.objects.get(serial_no=serial)
+        user = User.objects.get(username=user)
+        agency = User.objects.get(username=agency)
+        new_ssl.belongs_to.add(agency)
+        new_ssl.belongs_to.add(user)
+        new_ssl.belongs_to.remove(request.user)
+        return redirect('RegisterSSL')
 
 @login_required(login_url='login')
 def delete(request):
@@ -376,10 +378,10 @@ def download(request):
             font_style.font.bold = True
 
             serial = request.POST['serial']
-            ssl = product.object.filter(serial_no = serial)
+            ssl = product.objects.filter(serial_no = serial)
 
             ssl = list(ssl)
-            ssl = ssl.reverse()
+            # ssl = ssl.reverse()
 
             #column header names, you can use your own headers here
             columns = ['Created at', 'Updated at', 'Serial No', 'Location', 'Status', 'Battery Status', 'Battery Voltage', 'Panel Power', 'Panel Voltage', 'Current Energy', 'Total Energy', 'Belongs to']
@@ -394,8 +396,8 @@ def download(request):
             #get your data, from database or from a text file...
             for row in ssl:
                 row_num = row_num + 1
-                ws.write(row_num, 0, row.created_at, font_style)
-                ws.write(row_num, 1, row.updated.at, font_style)
+                ws.write(row_num, 0, str(row.created_at), font_style)
+                ws.write(row_num, 1, str(row.updated_at), font_style)
                 ws.write(row_num, 2, row.serial_no, font_style)
                 ws.write(row_num, 3, row.location, font_style)
                 ws.write(row_num, 4, row.status, font_style)
@@ -405,7 +407,11 @@ def download(request):
                 ws.write(row_num, 8, row.panel_voltage, font_style)
                 ws.write(row_num, 9, row.energy_curr, font_style)
                 ws.write(row_num, 10, row.total_energy, font_style)
-                ws.write(row_num, 11, row.belongs_to, font_style)
+                cnt = 11
+                temp = list(row.belongs_to.all())
+                for p in temp:
+                    ws.write(row_num, cnt, p.username, font_style)
+                    cnt = cnt+1
 
             wb.save(response)
             return response
