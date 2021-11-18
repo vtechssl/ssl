@@ -169,6 +169,8 @@ def ssl_data(request):
         if request.method == 'POST':
             serial = request.POST['serial']
             ssls = product.objects.filter(serial_no = serial)
+            print(ssls)
+            print(serial)
             context = {
                 'ssl_data':ssls,
             }
