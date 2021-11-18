@@ -95,6 +95,9 @@
        
         <th class="tabletr">Fault</th>
         <th class="tabletr">View Data</th>
+        {% if request.user.is_superuser %}
+        <th>Delete</th>
+        {% endif %}
     </tr>
   </thead>
   <tbody>
@@ -110,6 +113,23 @@
           <input type="hidden" name="serial" value="{{p.serial_no}}">
           <input class="select1 select2" style="border-radius: 10px; color: white; background-color: transparent; " type="submit" value="View Data"/>
         </form></td>
+        <td>
+          {% if request.user.is_superuser %}
+          <form action="delete" method="GET">
+            {% csrf_token %}
+            <input type="hidden" name="time" value="{{p.updated_at}}" />
+            <input
+              class="select1 select2"
+              style="
+                border-radius: 10px;
+                background-color: transparent;
+              "
+              type="submit"
+              value="Delete"
+            />
+          </form>
+          {% endif %}
+        </td>
       </tr>
       {% endfor %}
   </tbody>
