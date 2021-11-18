@@ -345,7 +345,7 @@ def delete(request):
             ssls.delete()
             ssls = product.objects.filter(serial_no=serial)
             ssls.delete()
-            return redirect('sslData')
+            return redirect('sslList')
         if request.method == 'PUT':
             time = request.POST['time']
             ssls = product.objects.get(updated_at=time)

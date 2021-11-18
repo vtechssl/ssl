@@ -63,7 +63,9 @@
         <th>Total Energy</th>
         <th>Fault</th>
         <th>Modify</th>
-        <th>delete</th>
+        {% if request.user.is_superuser %}
+        <th>Delete</th>
+        {% endif %}
       </tr>
       {% for p in ssl_data %}
       <tr>
@@ -78,22 +80,19 @@
         <td>{{p.energy_curr}}</td>
         <td>{{p.total_energy}}</td>
         <td>No Fault</td>
-        <td></td>
         <td>
+          {% if request.user.is_superuser %}
           <form action="delete" method="PUT">
             {% csrf_token %}
             <input type="hidden" name="time" value="{{p.updated_at}}" />
             <input
               class="select1 select2"
-              style="
-                border-radius: 10px;
-                color: white;
-                background-color: transparent;
-              "
+              style="border-radius: 10px; background-color: transparent"
               type="submit"
               value="Delete"
             />
           </form>
+          {% endif %}
         </td>
       </tr>
       {% endfor %}
