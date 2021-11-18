@@ -113,7 +113,7 @@
           <input type="hidden" name="serial" value="{{p.serial_no}}">
           <input class="select1 select2" style="border-radius: 10px; background-color: transparent; " type="submit" value="View Data"/>
         </form></td>
-        <td>
+        {% comment %} <td>
           {% if request.user.is_superuser %}
           <form action="delete" method="GET">
             {% csrf_token %}
@@ -129,7 +129,7 @@
             />
           </form>
           {% endif %}
-        </td>
+        </td> {% endcomment %}
       </tr>
       {% endfor %}
   </tbody>
