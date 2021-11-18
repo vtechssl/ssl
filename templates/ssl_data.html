@@ -78,24 +78,7 @@
         <td>{{p.energy_curr}}</td>
         <td>{{p.total_energy}}</td>
         <td>No Fault</td>
-        <td>
-          {% comment %}
-          <form action="modify" method="POST">
-            {% csrf_token %}
-            <input type="hidden" name="time" value="{{p.updated_at}}" />
-            <input
-              class="select1 select2"
-              style="
-                border-radius: 10px;
-                color: white;
-                background-color: transparent;
-              "
-              type="submit"
-              value="Modify"
-            />
-          </form>
-          {% endcomment %}
-        </td>
+        <td></td>
         <td>
           <form action="delete" method="PUT">
             {% csrf_token %}
