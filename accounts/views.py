@@ -233,15 +233,7 @@ def modify_data(request):
             pr.total_energy=Total_energy
             pr.save()
             messages.success(request, 'Data Updated')
-            request.method = 'GET'
-            return redirect('modifyData')
-        elif request.method == 'GET':
-            serial = request.GET['serial']
-            ssls = product.object.filter(serial_no = serial)
-            context = {
-                'ssl_data':ssls,
-            }
-            return render(request,'../templates/ssl_data_superadmin.html')
+            return redirect('sslData')
 
 @login_required(login_url='/login')
 @user_passes_test(is_superadmin)
@@ -269,7 +261,7 @@ def addAdmin(request):
             first_name = request.POST['name']
             user = User.objects.create(username=username, password=password, first_name=first_name)
             user.save()
-            group = Group.objects.get(name='Admin') 
+            group = Group.objects.get(name='Admin')
             group.user_set.add(user)
             new_group, created = Group.objects.get_or_create(name=username)
             return redirect('SuperAdmin')
@@ -300,27 +292,65 @@ def registerProduct(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
             serial = request.POST['serial']
-            status = 'null'
-            battery_status = 'null'
-            battery_voltage = 'null'
-            power_panel = 'null'
-            panel_voltage = 'null'
-            Energy_curr = 'null'
-            Total_energy = 'null'
-            users = request.POST['users']
-            new_ssl = product(serial_no=serial,location='null',attribute='null',status=status,battery_status=battery_status,battery_voltage=battery_voltage,power_panel=power_panel,panel_voltage=panel_voltage,energy_curr=Energy_curr,total_energy=Total_energy)
-            for user in users:
-                new_ssl.belongs_to.add(user)
+            users = request.user
+            new_ssl = ssl(serial_no=serial)
             new_ssl.save()
-            return redirect('RegisterProduct')
+            new_ssl.belongs_to.add(users)
+            return redirect('RegisterSSL')
         elif request.method == 'GET':
-            users = User.objects.filter(groups__name='User')
-            agency = User.objects.filter(groups__name='Agency')
-            context = {
-                'users':users,
-                'agency':agency,
+            ssls = ssl.objects.filter(belongs_to = request.user)
+            user_list = User.objects.filter(groups__name='User')
+            user_list = list(user_list)
+            agency_list = User.objects.filter(groups__name='Agency')
+            agency_list = list(agency_list)
+            context={
+                'user_list':user_list,
+                'agency_list':agency_list,
+                'products':ssls,
             }
-            return render(request, '../templates/register_product.html',context)
+            return render(request, '../templates/registerssl.html',context)
+        elif request.method == 'PUT':
+            serial = request.POST['serial']
+            agency=''
+            user=''
+            try:
+                try:
+                    agency = request.POST['Agency']
+                except:
+                    return redirect('RegisterSSL')
+                user = request.POST['User']
+            except:
+                new_ssl = ssl(serial_no=serial)
+                new_ssl.save()
+                new_ssl.belongs_to.add(agency)
+                return redirect('RegisterSSL')
+            new_ssl = ssl(serial_no=serial)
+            new_ssl.save()
+            new_ssl.belongs_to.add(agency)
+            new_ssl.belongs_to.add(user)
+            return redirect('RegisterSSL')
+
+@login_required(login_url='login')
+def delete(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            usernames = request.POST['username']
+            user = User.objects.get(username=usernames)
+            user.delete()
+            return redirect('SuperAdmin')
+        if request.method == 'GET':
+            serial = request.POST['serial']
+            ssls = ssl.objects.get(serial_no=serial)
+            ssls.delete()
+            ssls = product.objects.filter(serial_no=serial)
+            ssls.delete()
+            return redirect('sslData')
+        if request.method == 'PUT':
+            time = request.POST['time']
+            ssls = product.objects.get(updated_at=time)
+            ssls.delete()
+            return redirect('sslData')
+
 
 @login_required(login_url='/login')
 def download(request):
