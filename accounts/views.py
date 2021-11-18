@@ -243,7 +243,7 @@ def addAgency(request):
             username = request.POST['username']
             password = request.POST['password']
             first_name = request.POST['name']
-            user = User.objects.create(username=username, password=password, first_name=first_name)
+            user = User.objects.create_user(username=username, password=password, first_name=first_name)
             user.save()
             group = Group.objects.get(name='Agency') 
             group.user_set.add(user)
@@ -259,7 +259,7 @@ def addAdmin(request):
             username = request.POST['username']
             password = request.POST['password']
             first_name = request.POST['name']
-            user = User.objects.create(username=username, password=password, first_name=first_name)
+            user = User.objects.create_user(username=username, password=password, first_name=first_name)
             user.save()
             group = Group.objects.get(name='Admin')
             group.user_set.add(user)
@@ -276,7 +276,8 @@ def addUser(request):
             first_name = request.POST['name']
             location = request.POST['location']
             agency = request.POST['agency']
-            user = User.objects.create(username=username, password=password, first_name=first_name, last_name=location)
+            print(password)
+            user = User.objects.create_user(username=username, password=str(password), first_name=first_name, last_name=location)
             user.save()
             group = Group.objects.get(name='User') 
             group.user_set.add(user)

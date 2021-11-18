@@ -15,6 +15,6 @@ urlpatterns = [
     path('post-data',views.postdata,name='post_data'),
     path('login',views.login_view,name='Login'),
     path('logout',views.logout_view,name='Logout'),
-    path('delete',views.logout_view,name='Delete'),
+    path('delete',views.delete,name='Delete'),
     path('RegisterSSL',views.registerProduct,name='RegisterSSL'),
 ]
