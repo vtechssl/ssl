@@ -253,6 +253,7 @@ def addAgency(request):
             user.save()
             group = Group.objects.get(name='Agency') 
             group.user_set.add(user)
+            new_group, created = Group.objects.get_or_create(name=username)
             return redirect('SuperAdmin')
         elif request.method == 'GET':
             return render(request, '../templates/add_agency.html')
@@ -269,6 +270,8 @@ def addAdmin(request):
             user.save()
             group = Group.objects.get(name='Admin')
             group.user_set.add(user)
+            # group = Group.objects.get_or_create(name=username)
+            # group.save()
             new_group, created = Group.objects.get_or_create(name=username)
             return redirect('SuperAdmin')
 
@@ -282,7 +285,7 @@ def addUser(request):
             first_name = request.POST['name']
             location = request.POST['location']
             agency = request.POST['agency']
-            print(password)
+            print(agency)
             user = User.objects.create_user(username=username, password=str(password), first_name=first_name, last_name=location)
             user.save()
             group = Group.objects.get(name='User') 

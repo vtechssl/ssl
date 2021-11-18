@@ -121,8 +121,9 @@
               <td>{{p.first_name}}</td>
               {% endif %}
               <td>
-                <form action="sslList" method="GET">
-          <input type="hidden" name="serial" value="{{p.serial_no}}">
+                <form action="sslList" method="POST">
+                {% csrf_token %}
+          <input type="hidden" name="username" value="{{p.username}}">
           <input class="select1 select2" style="border-radius: 10px; background-color: transparent; " type="submit" value="View Data"/>
         </form>
               </td>
