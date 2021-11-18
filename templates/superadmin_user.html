@@ -96,11 +96,11 @@
     <input name="location" type="text" class="form-control" id="exampleInputPassword1">
   </div>
   <select name="agency" class="form-select mt-3 mb-1" aria-label="Default select example">
-  <option selected>Select Agency</option>
-  {% for p in agency_list %}
-    <option value="{{p.username}}">{{p.first_name}}</option>
-  {% endfor %}
-</select>
+    <option selected>Select Agency</option>
+    {% for p in agency_list %}
+      <option value="{{p.username}}">{{p.first_name}}</option>
+    {% endfor %}
+    </select>
 
   <div class="form-group">
     <label for="exampleInputEmail1">Username</label>
