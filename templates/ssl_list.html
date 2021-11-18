@@ -71,8 +71,8 @@
                  >
                  {% csrf_token %}
                  <h6 class="select1" style="padding: 0 20px">Serial no.</h6>
-                 <input style="margin-right: 20px;" type="text" name="serial" placeholder="Serial no."/>
-                 <input style="border-radius: 10px; color:black; background-color: transparent; " type="submit" value="Submit"/>
+                 <input class="select1 mb-2" style="margin-right: 20px;" type="text" name="serial" placeholder="Serial no."/>
+                 <input class="select1 mb-2" style="border-radius: 10px; color:black; background-color: transparent; " type="submit" value="Submit"/>
 
       
                  </form>
@@ -111,7 +111,7 @@
         <td><form action="sslData" method="POST">
           {% csrf_token %}
           <input type="hidden" name="serial" value="{{p.serial_no}}">
-          <input class="select1 select2" style="border-radius: 10px; color: white; background-color: transparent; " type="submit" value="View Data"/>
+          <input class="select1 select2" style="border-radius: 10px; background-color: transparent; " type="submit" value="View Data"/>
         </form></td>
         <td>
           {% if request.user.is_superuser %}

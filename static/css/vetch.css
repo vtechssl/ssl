@@ -44,16 +44,13 @@ nav {
 .parent {
   max-width: 70vw;
   display: flex;
-  
 }
 
-.paresh{
-  
+.paresh {
   display: grid;
   margin-left: -38px;
   grid-column-gap: 201px;
   grid-row-gap: 15px;
-  
 }
 .div1 {
   grid-area: 1 / 1 / 2 / 2;
@@ -103,10 +100,10 @@ th {
 }
 
 tr:nth-child(even) {
-  background-color:#417691;
+  background-color: #417691;
 }
 tr:nth-child(odd) {
-  color:black;
+  color: black;
 }
 .main1,
 .main2 {
@@ -114,7 +111,7 @@ tr:nth-child(odd) {
   color: black;
   margin: 1% auto;
   max-width: 80vw;
-  
+
   /* border: 1px solid #2a2c2c; */
   border-radius: 15px;
   box-shadow: 0px 9px 13px 6px rgba(0, 0, 0, 0.18);
@@ -146,7 +143,8 @@ tr:nth-child(odd) {
     width: 20px;
   }
   .select1 {
-    display: none;
+    height: 30px;
+    width: 60px;
   }
 }
 @media screen and (max-width: 968px) {
@@ -163,7 +161,8 @@ tr:nth-child(odd) {
     width: 20px;
   }
   .select1 {
-    display: none;
+    height: 30px;
+    width: 60px;
   }
 }
 @media screen and (max-width: 1200px) {
@@ -180,29 +179,28 @@ tr:nth-child(odd) {
     width: 20px;
   }
   .select1 {
-    display: none;
+    height: 30px;
+    width: 60px;
   }
 }
 
-
-.tabletr{
+.tabletr {
   border: 1px solid #666565;
   text-align: left;
   padding: 8px;
   padding-left: 45px;
 }
 
-.select2:hover{
+.select2:hover {
   background-color: #417690 !important;
   color: white !important;
-
 }
 
-.cardl{
+.cardl {
   background-color: #f8f8f8;
   opacity: 0.9;
 }
-.background{
+.background {
   background-image: url(../logoimage/bg2.jpg);
   background-position: center;
   background-size: cover;
@@ -210,15 +208,17 @@ tr:nth-child(odd) {
   height: 100vh;
 }
 
-.navl{
+.navl {
   background-color: #417690 !important;
 }
 
-.select3:hover{
+.select3:hover {
   background-color: #417690 !important;
   color: white !important;
-
 }
-.select3{
-  border-radius: 10px; color: black; background-color: transparent; padding:20px
+.select3 {
+  border-radius: 10px;
+  color: black;
+  background-color: transparent;
+  padding: 20px;
 }
