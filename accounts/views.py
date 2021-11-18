@@ -46,7 +46,7 @@ def postdata(request):
     Total_energy = request.POST['totaleng']
     print(serial)
     
-    pr = product.objects.filter(serial_no=serial)
+    pr = ssl.objects.filter(serial_no=serial)
 
     if pr is None:
         return HttpResponse('serial no not found')
