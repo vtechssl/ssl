@@ -170,6 +170,7 @@ def ssl_data(request):
             serial = request.POST['serial']
             ssls = product.objects.filter(serial_no = serial)
             ssls = list(ssls)
+            ssls = ssls.reverse()
             print(ssls)
             context = {
                 'ssl_data':ssls,
