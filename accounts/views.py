@@ -170,11 +170,11 @@ def ssl_data(request):
             serial = request.POST['serial']
             ssls = product.objects.filter(serial_no = serial)
             ssls = list(ssls)
-            print(serial)
+            print(ssls)
             context = {
                 'ssl_data':ssls,
             }
-            return render(request,'../templates/ssl_data.html')
+            return render(request,'../templates/ssl_data.html',context)
     messages.warning(request, 'Invalid Request')
     return Http404
 
