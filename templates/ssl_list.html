@@ -2,154 +2,191 @@
 
 <nav class="navbar navbar-expand-lg navbar navl">
   <a class="navbar-brand" href="#">
-    <img src="../static/logoimage/logo.jpeg" width="110" height="40" class="d-inline-block align-top m-1 " alt="">
+    <img
+      src="../static/logoimage/logo.jpeg"
+      width="110"
+      height="40"
+      class="d-inline-block align-top m-1"
+      alt=""
+    />
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarText"
+    aria-controls="navbarText"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarText">
-    {% comment %} <ul class="navbar-nav mr-auto">
+    {% comment %}
+    <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="#"
+          >Home <span class="sr-only">(current)</span></a
+        >
       </li>
-      
-    </ul> {% endcomment %}
+    </ul>
+    {% endcomment %}
     <ul class="nav navbar-nav ms-auto" id="navbarText">
-      <li><h6 style="color: white;">Welcome : {{ request.user.username }}</h6></li>
-      <li ><a href="logout" style="text-decoration: none; color: yellow;  ">Logout</a></li>
+      <li>
+        <h6 style="color: white">Welcome : {{ request.user.username }}</h6>
+      </li>
+      <li>
+        <a href="logout" style="text-decoration: none; color: yellow">Logout</a>
+      </li>
     </ul>
   </div>
 </nav>
 
-{% endblock navbar %}
-
-{% block body %}
+{% endblock navbar %} {% block body %}
 
 <div class="main1 p-3 d-flex flex-lg-row justify-content-center">
-
- <div class="container">
-  
-   
-
-    <div class="row mt-2" style="justify-content: space-between;">
+  <div class="container">
+    <div class="row mt-2" style="justify-content: space-between">
       <div class="col-lg-6 col-sm-6">
-        <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#bfc902,#f8ff6e);">
-            <div class="card-content">
-                 <p>Total SSL</p>
-                <h5>1</h5>
-            </div>
+        <div
+          class="
+            card
+            d-flex
+            flex-lg-row
+            align-items-lg-center
+            justify-content-center
+          "
+          style="background: linear-gradient(to right, #bfc902, #f8ff6e)"
+        >
+          <div class="card-content">
+            <p>Total SSL</p>
+            <h5>1</h5>
+          </div>
         </div>
       </div>
 
       <div class="col-lg-6 col-sm-6">
-        <div class="card d-flex flex-lg-row align-items-lg-center justify-content-center" style="background: linear-gradient(to right,#de4a00,#ff9747);">
-            <div class="card-content">
-                 <p>Live SSL</p>
-                <h5>1</h5>
-            </div>
+        <div
+          class="
+            card
+            d-flex
+            flex-lg-row
+            align-items-lg-center
+            justify-content-center
+          "
+          style="background: linear-gradient(to right, #de4a00, #ff9747)"
+        >
+          <div class="card-content">
+            <p>Live SSL</p>
+            <h5>1</h5>
+          </div>
         </div>
       </div>
     </div>
-
   </div>
-    
-
-  
 </div>
-
 
 <div class="main2">
   <h5 style="text-align: center; padding: 20px 0">SSL Serial Numbers</h5>
-  <div class="row" style="justify-content: space-between;">
-      <div class="col-lg-6 col-sm-6">
-        
-            <div class="card-content">
-                 <form
-                 action="dashboard"
-                 style="display: flex; flex-direction: row; padding-right: 20px"
-                 method="POST"
-                 >
-                 {% csrf_token %}
-                 <h6 class="select1" style="padding: 0 20px">Serial no.</h6>
-                 <input class="select1 mb-2" style="margin-right: 20px;" type="text" name="serial" placeholder="Serial no."/>
-                 <input class="select1 mb-2" style="border-radius: 10px; color:black; background-color: transparent; " type="submit" value="Submit"/>
-
-      
-                 </form>
-            </div>
-        
-      </div>
-
-      
-    </div>
-  <div class="form">
-    
-   <div class="tablecard" style="border: 2px solid transparent; display: flex; align-items: center; justify-content: center;">
-
-     <table class="table table-striped">
-  <thead>
-    <tr>
-      <th class="tabletr">Serial no.</th>
-    
-        <th class="tabletr">SSL Status</th>
-       
-        <th class="tabletr">Fault</th>
-        <th class="tabletr">View Data</th>
-        {% comment %} {% if request.user.is_superuser %}
-        <th>Delete</th>
-        {% endif %} {% endcomment %}
-    </tr>
-  </thead>
-  <tbody>
-      {% for p in ssl_list %}
-      <tr>
-        <td>{{p.serial_no}}</td>
-        
-        <td>{{p.status}}</td>
-       
-        <td> No Fault </td>
-        <td><form action="sslData" method="POST">
-          {% csrf_token %}
-          <input type="hidden" name="serial" value="{{p.serial_no}}">
-          <input class="select1 select2" style="border-radius: 10px; background-color: transparent; " type="submit" value="View Data"/>
-        </form></td>
-        {% comment %} <td>
-          {% if request.user.is_superuser %}
-          <form action="delete" method="GET">
-            {% csrf_token %}
-            <input type="hidden" name="serial" value="{{p.serial_no}}" />
+  <div class="row" style="justify-content: space-between">
+    <div class="col-lg-6 col-sm-6">
+      <div class="row" style="justify-content: space-between">
+        <div class="col-lg-9">
+          <div class="card-content">
             <input
-              class="select1 select2"
-              style="
-                border-radius: 10px;
-                background-color: transparent;
-              "
-              type="submit"
-              value="Delete"
+              class="form-control"
+              id="myInput"
+              onkeyup="myFunction()"
+              type="text"
+              placeholder="Search.."
             />
-          </form>
-          {% endif %}
-        </td> {% endcomment %}
-      </tr>
-      {% endfor %}
-  </tbody>
-</table>
+            <br />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form">
+      <div
+        class="tablecard"
+        style="
+          border: 2px solid transparent;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="tabletr">Serial no.</th>
 
-    
-  </div>
-  </div>
-</div>
+              <th class="tabletr">SSL Status</th>
 
+              <th class="tabletr">Fault</th>
+              <th class="tabletr">View Data</th>
+              {% comment %} {% if request.user.is_superuser %}
+              <th>Delete</th>
+              {% endif %} {% endcomment %}
+            </tr>
+          </thead>
+          <tbody id="myTable">
+            {% for p in ssl_list %}
+            <tr>
+              <td>{{p.serial_no}}</td>
+
+              <td>{{p.status}}</td>
+
+              <td>No Fault</td>
+              <td>
+                <form action="sslData" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="serial" value="{{p.serial_no}}" />
+                  <input
+                    class="select1 select2"
+                    style="border-radius: 10px; background-color: transparent"
+                    type="submit"
+                    value="View Data"
+                  />
+                </form>
+              </td>
+              {% comment %}
+              <td>
+                {% if request.user.is_superuser %}
+                <form action="delete" method="GET">
+                  {% csrf_token %}
+                  <input type="hidden" name="serial" value="{{p.serial_no}}" />
+                  <input
+                    class="select1 select2"
+                    style="border-radius: 10px; background-color: transparent"
+                    type="submit"
+                    value="Delete"
+                  />
+                </form>
+                {% endif %}
+              </td>
+              {% endcomment %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
 <footer id="footer">
-
-
-<div class="footer-inner card-footer text-muted">
-<div class="container pb-2 pt-2 navl" style="display: flex; text-align: center; justify-content: center; color:white">
-  Copyright@2021 - VTECH SUN-1.0 <br>
-</div>
-</div>
-
+  <div class="footer-inner card-footer text-muted">
+    <div
+      class="container pb-2 pt-2 navl"
+      style="
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        color: white;
+      "
+    >
+      Copyright@2021 - VTECH SUN-1.0 <br />
+    </div>
+  </div>
 </footer>
 
 {% endblock body %}

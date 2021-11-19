@@ -24,33 +24,23 @@
 
   <ul class="nav flex-column bg-white mb-0">
     <li class="nav-item">
-      <a href="SuperAdmin" class="nav-link text-dark active">
+      <a href="AdminHome" class="nav-link text-dark active">
                 <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>
                 Agency
             </a>
     </li>
     <li class="nav-item">
-      <a href="SuperAdminU" class="nav-link text-dark">
+      <a href="AdminUser" class="nav-link text-dark">
                 <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
                 User
             </a>
     </li>
-    <li class="nav-item">
-      <a href="SuperAdminA" class="nav-link text-dark">
-      <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
-      Admin
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="RegisterSSL" class="nav-link text-dark">
-                <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
-                Register SSL
-            </a>
-    </li>
+    
+    
     
   </ul>
 
-  {% comment %} <p class="text-gray font-weight-bold text-uppercase px-3 small py-4 mb-0">Charts</p> {% endcomment %}
+  
 
   
   </ul>
@@ -68,71 +58,11 @@
       
 
 <!-- Button trigger modal -->
-<div class="d-flex flex-row-reverse m-3 mt-0">
-<button type="button" class="btn " data-toggle="modal" data-target="#exampleModal" style="background-color:#417690; color:white">
-  <b>+</b> Add User
-</button>
-</div>
+
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
-        
-         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      {% comment %} User Information  {% endcomment %}
- <form action="AddUser" method="POST">
- {% csrf_token %}
- <div class="modal-body">
-  <div class="form-group">
-    <label for="exampleInputEmail1">Name</label>
-    <input name="name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    </div>
-
-    <div class="form-group">
-    <label for="exampleInputPassword1">Zone</label>
-    <input name="location" type="text" class="form-control" id="exampleInputPassword1">
-  </div>
-  <select name="agency" class="form-select mt-3 mb-1" aria-label="Default select example">
-    <option selected>Select Agency</option>
-    {% for p in agency_list %}
-      <option value="{{p.username}}">{{p.first_name}}</option>
-    {% endfor %}
-    </select>
-
-  <div class="form-group">
-    <label for="exampleInputEmail1">Username</label>
-    <input name="username" type="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    
-  </div>
-  
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input name="password" type="password" class="form-control" id="exampleInputPassword1">
-  </div>
-
-  <div class="form-group">
-    <label for="exampleInputPassword1">Confirm Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
-  </div>
 
 
-  
-      </div>
-      <div class="modal-footer">
-        
-        <button type="submit" class="btn btn-primary">Save</button>
-      </div>
-    </div>
-  </div>
-</div>
-</form>
 <!--Table -->
 
 <div class="main2">
@@ -142,7 +72,7 @@
         
             <div class="card-content">
               
-                  <input class="form-control" id="myInput" onkeyup="myFunction()" type="text" placeholder="Search..">
+                  <input class="form-control" id="myInput" type="text" placeholder="Search..">
                   <br>
             
             </div>
@@ -164,7 +94,7 @@
        
         <th class="tabletr">Fault</th> {% endcomment %}
         <th class="tabletr">View Data</th>
-        <th class="tabletr">Delete</th>
+        
     </tr>
    </thead>
    <tbody id="myTable">
@@ -186,16 +116,7 @@
                 </form>
               </td>
               {% endif %}
-              {% if p.is_superuser %}
-              {% else %}
-              <td>
-              <form action="delete" method="POST">
-                  {% csrf_token %}
-                  <input type="hidden" name="username" value="{{p.username}}">
-                  <input class="select1 select2" style="border-radius: 10px; background-color: transparent; " type="submit" value="Delete"/>
-                </form>
-                </td>
-              {% endif %}
+             
             </tr>
             {% endfor %}
     </tbody>
@@ -205,6 +126,7 @@
   </div>
  </div>
 
+</div>
 </div>
 <footer id="footer">
 
@@ -216,7 +138,6 @@
 </div>
 
 </footer>
-</div>
 
    <!--Toggle Button-->
 <script> $(function() { 

@@ -90,6 +90,36 @@ def superadmin_users(request):
             return render(request, '../templates/superadmin_user.html',context)
 
 @login_required(login_url='/login')
+@user_passes_test(is_superadmin)
+def superadmin_admins(request):
+    if request.user.is_authenticated:
+        if request.method == 'GET':
+            admin_list = User.objects.filter(groups__name='Admin')
+            admin_list = list(admin_list)
+            context={
+                'admin_list':admin_list,
+            }
+            return render(request, '../templates/superadmin_admin.html',context)
+
+@login_required(login_url='/login')
+@user_passes_test(is_admin)
+def admin_user(request):
+    if request.user.is_authenticated:
+        if request.method == 'GET': 
+            user_list = User.objects.filter(groups__name='User')
+            user_list = list(user_list)
+            agency_list = User.objects.filter(groups__name='Agency')
+            agency_list = list(agency_list)
+            context={
+                'user_list':user_list,
+                'agency_list':agency_list,
+            }
+            return render(request, '../templates/admin_users.html',context)
+    messages.warning(request, 'Invalid Request')
+    return Http404
+
+
+@login_required(login_url='/login')
 @user_passes_test(is_admin)
 def admin_home(request):
     if request.user.is_authenticated:
@@ -99,12 +129,12 @@ def admin_home(request):
             context={
                 'agency_list':agency_list,
             }
-            return render(request,'../templates/admin_home.html', context)
+            return render(request, '../templates/admin_home.html',context)
     messages.warning(request, 'Invalid Request')
     return Http404
 
 @login_required(login_url='/login')
-@user_passes_test(is_agency)
+# @user_passes_test(is_agency)
 def agency_home(request):
     if request.user.is_authenticated:
         if request.method=='GET':
@@ -272,10 +302,7 @@ def addAdmin(request):
             user.save()
             group = Group.objects.get(name='Admin')
             group.user_set.add(user)
-            # group = Group.objects.get_or_create(name=username)
-            # group.save()
-            new_group, created = Group.objects.get_or_create(name=username)
-            return redirect('SuperAdmin')
+            return redirect('SuperAdminA')
 
 @login_required(login_url='/login')
 @user_passes_test(is_superadmin)
