@@ -70,7 +70,7 @@
 <!-- Button trigger modal -->
 <div class="d-flex flex-row-reverse m-3 mt-0">
 <button type="button" class="btn " data-toggle="modal" data-target="#exampleModal" style="background-color:#417690; color:white">
-  <b>+</b> Add User
+  <b>+</b> Add Admin
 </button>
 </div>
 
@@ -79,7 +79,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add Admin</h5>
         
          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -87,7 +87,7 @@
       </div>
 
       {% comment %} User Information  {% endcomment %}
- <form action="AddUser" method="POST">
+ <form action="AddAdmin" method="POST">
  {% csrf_token %}
  <div class="modal-body">
   <div class="form-group">
@@ -95,12 +95,7 @@
     <input name="name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
     </div>
 
-    <div class="form-group">
-    <label for="exampleInputPassword1">Zone</label>
-    <input name="location" type="text" class="form-control" id="exampleInputPassword1">
-  </div>
-  <select name="agency" class="form-select mt-3 mb-1" aria-label="Default select example">
-    <option selected>Select Agency</option>
+  
     {% for p in agency_list %}
       <option value="{{p.username}}">{{p.first_name}}</option>
     {% endfor %}
@@ -136,12 +131,11 @@
 <!--Table -->
 
 <div class="main2">
-  <h5 style="text-align: center; padding: 20px 0">User List</h5>
+  <h5 style="text-align: center; padding: 20px 0">Admin List</h5>
   <div class="row" style="justify-content: space-between;">
       <div class="col-lg-6 col-sm-6">
         
             <div class="card-content">
-              
                   <input class="form-control" id="myInput" onkeyup="myFunction()" type="text" placeholder="Search..">
                   <br>
             
@@ -158,33 +152,18 @@
  <table class="table table-striped">
    <thead>
      <tr>
-      <th class="tabletr">User</th>
-    
-        {% comment %} <th class="tabletr">SSL Status</th>
-       
-        <th class="tabletr">Fault</th> {% endcomment %}
-        <th class="tabletr">View Data</th>
-        <th class="tabletr">Delete</th>
+      <th class="tabletr">Admins</th>
+      <th class="tabletr">Delete</th>
     </tr>
    </thead>
    <tbody id="myTable">
-      {% for p in user_list %}
+      {% for p in admin_list %}
       <tr>
               {% if p.is_superuser %}
               {% elif p.first_name == "" %}
               <td>No Name Present: {{p.username}} (Username)</td>
               {% else %}
               <td>{{p.first_name}}</td>
-              {% endif %}
-              {% if p.is_superuser %}
-              {% else %}
-              <td>
-                <form action="sslList" method="POST">
-                  {% csrf_token %}
-                  <input type="hidden" name="username" value="{{p.username}}">
-                  <input class="select1 select2" style="border-radius: 10px;  background-color: transparent; " type="submit" value="View Data"/>
-                </form>
-              </td>
               {% endif %}
               {% if p.is_superuser %}
               {% else %}
@@ -199,11 +178,10 @@
             </tr>
             {% endfor %}
     </tbody>
- </table>
+</table>
 
-    
-  </div>
- </div>
+</div>
+</div>
 
 </div>
 <footer id="footer">
@@ -211,12 +189,13 @@
 
 <div class="footer-inner card-footer text-muted">
 <div class="container pb-2 pt-2 navl" style="display: flex; text-align: center; justify-content: center; color:white">
-  Copyright@2021 - VTECH SUN-1.0 <br>
+ Copyright@2021 - VTECH SUN-1.0 <br>
 </div>
 </div>
 
 </footer>
 </div>
+
 
    <!--Toggle Button-->
 <script> $(function() { 

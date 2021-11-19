@@ -37,73 +37,96 @@
 
 <div class="main2">
   <h5 style="text-align: center; padding: 20px 0">SSL Serial Numbers</h5>
-  <div class="form">
-    <form
-      action="download"
-      style="display: flex; flex-direction: row; padding-right: 20px"
-      method="POST"
-    >
-      {% csrf_token %}
-      <input
-        type="text"
-        name="serial"
-        placeholder="Enter serial no for confirmation"
-      />
-      <input type="hidden" name="file_name" value="{{request.user.username}}" />
-      <input class="select1" type="submit" value="Download" />
-    </form>
+  <div class="row" style="align-items: center">
+    <div class="col-sm-4">
+      <div class="card-content">
+        <input
+          class="form-control"
+          id="myInput"
+          onkeyup="myFunction()"
+          type="text"
+          placeholder="Search.."
+        />
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <form
+        action="download"
+        style="display: flex; flex-direction: row; padding-right: 20px"
+        method="POST"
+      >
+        {% csrf_token %}
+        <input
+          type="text"
+          name="serial"
+          placeholder="Enter serial no for confirmation"
+        />
+        <input
+          type="hidden"
+          name="file_name"
+          value="{{request.user.username}}"
+        />
+        <input class="select1" type="submit" value="Download" />
+      </form>
+    </div>
 
-    <table class="tbody" style="padding: 20px 0px; height: 500px">
-      <tr>
-        <th>Serial no.</th>
-        <th>Created at</th>
-        <th>Last Communication</th>
-        <th>SSL Status</th>
-        <th>Battery Status</th>
-        <th>Battery Voltage (V)</th>
-        <th>Panel Power (W)</th>
-        <th>Panel Voltage (V)</th>
-        <th>Energy Today</th>
-        <th>Total Energy</th>
-        <th>Fault</th>
-        {% comment %} {% if request.user.is_superuser %}
-        <th>Modify</th>
-        {% endif %} {% if request.user.is_superuser %}
-        <th>Delete</th>
-        {% endif %} {% endcomment %}
-      </tr>
-      {% for p in ssl_data %}
-      <tr>
-        <td>{{p.serial_no}}</td>
-        <td>{{p.created_at.date}}</td>
-        <td>{{p.updated_at}}</td>
-        <td>{{p.status}}</td>
-        <td>{{p.battery_status}}</td>
-        <td>{{p.battery_voltage}}</td>
-        <td>{{p.power_panel}}</td>
-        <td>{{p.panel_voltage}}</td>
-        <td>{{p.energy_curr}}</td>
-        <td>{{p.total_energy}}</td>
-        <td>No Fault</td>
-        {% comment %}
-        <td>
-          {% if request.user.is_superuser %}
-          <form action="delete" method="PUT">
-            {% csrf_token %}
-            <input type="hidden" name="time" value="{{p.updated_at}}" />
-            <input
-              class="select1 select2"
-              style="border-radius: 10px; background-color: transparent"
-              type="submit"
-              value="Delete"
-            />
-          </form>
-          {% endif %}
-        </td>
-        {% endcomment %}
-      </tr>
-      {% endfor %}
-    </table>
+    <div class="form">
+      <table
+        class="tbody"
+        id="myTable"
+        style="padding: 20px 0px; height: 500px"
+      >
+        <tr>
+          <th>Serial no.</th>
+          <th>Created at</th>
+          <th>Last Communication</th>
+          <th>SSL Status</th>
+          <th>Battery Status</th>
+          <th>Battery Voltage (V)</th>
+          <th>Panel Power (W)</th>
+          <th>Panel Voltage (V)</th>
+          <th>Energy Today</th>
+          <th>Total Energy</th>
+          <th>Fault</th>
+          {% comment %} {% if request.user.is_superuser %}
+          <th>Modify</th>
+          {% endif %} {% if request.user.is_superuser %}
+          <th>Delete</th>
+          {% endif %} {% endcomment %}
+        </tr>
+        {% for p in ssl_data %}
+        <tr>
+          <td>{{p.serial_no}}</td>
+          <td>{{p.created_at.date}}</td>
+          <td>{{p.updated_at}}</td>
+          <td>{{p.status}}</td>
+          <td>{{p.battery_status}}</td>
+          <td>{{p.battery_voltage}}</td>
+          <td>{{p.power_panel}}</td>
+          <td>{{p.panel_voltage}}</td>
+          <td>{{p.energy_curr}}</td>
+          <td>{{p.total_energy}}</td>
+          <td>No Fault</td>
+          {% comment %}
+          <td>
+            {% if request.user.is_superuser %}
+            <form action="delete" method="PUT">
+              {% csrf_token %}
+              <input type="hidden" name="time" value="{{p.updated_at}}" />
+              <input
+                class="select1 select2"
+                style="border-radius: 10px; background-color: transparent"
+                type="submit"
+                value="Delete"
+              />
+            </form>
+            {% endif %}
+          </td>
+          {% endcomment %}
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
   </div>
+  {% endblock body %}
 </div>
-{% endblock body %}
